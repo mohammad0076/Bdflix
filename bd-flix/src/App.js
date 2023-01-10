@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Avijit Sarkar
+          <p>Avijit Sarkar</p>
         </a>
       </header>
     </div>
