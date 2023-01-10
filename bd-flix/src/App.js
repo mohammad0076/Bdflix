@@ -15,8 +15,10 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <p>Avijit Sarkar</p>
+          Learn React
         </a>
+
+        <p>Avijit Sarkar</p>
       </header>
     </div>
   );
