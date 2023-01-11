@@ -5,11 +5,11 @@ import Navbar from '../Components/Navbar/Navbar';
 
 const Main = () => {
     return (
-        <>
-       <Navbar></Navbar>
-       <Outlet></Outlet>
-       <Footer></Footer>
-        </>
+        <div className='relative'>
+            <Navbar></Navbar>
+            <Outlet></Outlet>
+            <div className='absolute'><Footer></Footer></div>
+        </div>
     );
 };
 
