@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-
+import './CategoryStyle.css';
 
 const MovieCategoryCard = () => {
     const [arrowButtonVisibility, setArrowButtonVisibility] = useState(false);
@@ -66,7 +66,7 @@ const MovieCategoryCard = () => {
                                 >
 
                                     <img
-                                        className='rounded-md w-60 h-60 transition-transform duration-300 ease-in-out transform'
+                                        className='rounded-md w-60 h-60 transition-transform duration-300 ease-in-out transform hover-zoom'
                                         src={images.image} alt=''
 
                                     ></img>
