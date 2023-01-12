@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import img1 from '../../../SlideImages/img2.png';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import MovieCategoryCard from './MoviesCategory/MovieCategoryCard';
+
 const Slider = () => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const slider = [
     { sliderImage: img1, moviesName: "panthar", publishedDate: "", },
-    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerMobile/wl7K42Ty8lv.jpg', moviesName: "panthar", publishedDate: "", },
-    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerMobile/9vz5k067H1o.jpg', moviesName: "panthar", publishedDate: "", },
+    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerDesktop/9vz5k067H1o.jpg', moviesName: "panthar", publishedDate: "", },
+    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerDesktop/3kMUBFGj6xZ.jpg', moviesName: "panthar", publishedDate: "", },
     { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerDesktop/j0UCJSQdxgu.jpg', moviesName: "panthar", publishedDate: "", },]
 
     // handle nextslide slide
@@ -35,7 +36,7 @@ const Slider = () => {
                 <div className='absolute inset-0'>
                     <div className='relative'>
                         <img
-                            className='object-fit-scale-down h-screen w-screen'
+                            className='object-fit-scale-down h-screen w-screen transition transform duration-300 ease-in'
                             src={slider[currentSlide].sliderImage} alt="" />
                         <div className='absolute inset-0 bg-black opacity-50'></div>
                     </div>
