@@ -1,15 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MoviesForYou.css';
-import {AiOutlineArrowRight} from "react-icons/ai"
-
-
-
-
-
+import { AiOutlineArrowRight } from "react-icons/ai"
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const MoviesForYou = () => {
-
-
 
     const PopularMovies = [
         {
@@ -46,30 +40,69 @@ const MoviesForYou = () => {
         }
     ]
 
+    const [arrowButtonVisibility, setArrowButtonVisibility] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
+    const handlePrevSlide = () => {
+        setCurrentIndex(currentIndex - 1);
+    };
 
-
-
-
+    const handleNextSlide = () => {
+        setCurrentIndex(currentIndex + 1);
+    };
 
     return (
-        <div className='mx-2 md:mx-8 mt-10'>
-            <div className='flex justify-between mb-5'>
-                <h1 className='text-2xl font-bold text-white'>Movies For You</h1>
+        <div className='ml-8 mt-4 mt-15'>
+            <div className='flex justify-between mb-3'>
+                <h1 className='text-xl font-bold text-white'>Movies For You</h1>
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
-            <div className='carousel-item'>
-                {
-                    PopularMovies?.slice(0, 7).map(movies => <div className=" carousel-item w-36 md:w-48 lg:w-80 m-1 md:m-2 image-full transition-transform duration-300 ease-in-out transform hover:scale-110">
-                        <div className='relative'>
-                            <figure className='poster-img'>
-                                <img className='' src={movies.PhotoUrl} alt="Shoes" />
-                            </figure>
-                            <h2 className=" absolute bottom-2 text-center md:text-xl  font-bold text-white  mx-2 ">{movies.name}</h2>
-                        </div>
-                    </div>)
-                }
-            </div>
+            <>
+
+                <div className="carousel carousel-center space-x-4 h-[30vw]"
+                    onMouseEnter={() => setArrowButtonVisibility(true)}
+                    onMouseLeave={() => setArrowButtonVisibility(false)}
+                >
+                    <div className="carousel-item">
+                        {
+                            PopularMovies.map((images, index) => (
+                                <div
+                                    key={index}
+                                    className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
+                                    style={{
+                                        transform: `translateX(${-100 * currentIndex}%)`,
+                                        transition: 'transform 0.3s ease-in-out',
+                                    }}>
+
+                                    <div className="carousel-item mr-2 relative">
+                                        <img
+                                            className='rounded-md lg:w-full lg:h-[300px]'
+                                            src={images.PhotoUrl} alt=''
+                                        ></img>
+                                        <h2 className="absolute bottom-40 text-center md:text-lg font-bold text-white mx-2 ">{images.name}</h2>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                        <button
+                            className={`lg:block hidden absolute bottom-[250px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            onClick={handlePrevSlide}
+                        >
+                            <FaAngleLeft />
+                        </button>
+
+
+                        <button
+                            className={`lg:block hidden absolute bottom-[250px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            onClick={handleNextSlide}
+                        >
+                            <FaAngleRight />
+                        </button>
+                    </div>
+                </div>
+
+            </>
         </div>
     );
 };

@@ -76,7 +76,7 @@ const MovieCategoryCard = () => {
                     }
 
                     <button
-                        className={`absolute top-44 bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                        className={`lg:block hidden absolute top-44 bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                         onClick={handlePrevSlide}
                     >
                         <FaAngleLeft />
@@ -84,7 +84,7 @@ const MovieCategoryCard = () => {
 
 
                     <button
-                        className={`absolute top-44 bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                        className={`lg:block hidden absolute top-44 bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                         onClick={handleNextSlide}
                     >
                         <FaAngleRight />
