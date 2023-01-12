@@ -5,6 +5,7 @@ const HomePage = () => {
     return (
         <div>
             <Slider></Slider>
+            <Slider></Slider>
 
         </div>
     );
