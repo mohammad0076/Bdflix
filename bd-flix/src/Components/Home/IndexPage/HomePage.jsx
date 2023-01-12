@@ -7,6 +7,7 @@ const HomePage = () => {
     return (
         <div>
             <Slider></Slider>
+
             <MostPopular></MostPopular>
             <MoviesForYou></MoviesForYou>
         </div>
