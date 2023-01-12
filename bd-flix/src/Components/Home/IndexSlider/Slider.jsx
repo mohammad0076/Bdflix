@@ -9,7 +9,7 @@ const Slider = () => {
     const slider = [
     { sliderImage: img1, moviesName: "panthar", publishedDate: "", },
     { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerMobile/wl7K42Ty8lv.jpg', moviesName: "panthar", publishedDate: "", },
-    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerMobile/3kMUBFGj6xZ.jpg', moviesName: "panthar", publishedDate: "", },
+    { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerMobile/9vz5k067H1o.jpg', moviesName: "panthar", publishedDate: "", },
     { sliderImage: 'https://cdn.bioscopelive.com/upload/slide/topBannerDesktop/j0UCJSQdxgu.jpg', moviesName: "panthar", publishedDate: "", },]
 
     // handle nextslide slide
@@ -28,13 +28,14 @@ const Slider = () => {
         }, 5000);
         return () => clearInterval(interval);
     }, [currentSlide]);
+    
     return (
-        <div className='relative h-[700px]'>
-            <div className='relative h-[100vh]'>
+        <div className='relative h-[850px]'>
+            <div className='relative'>
                 <div className='absolute inset-0'>
                     <div className='relative'>
                         <img
-                            className='object-cover h-screen w-screen slide-img'
+                            className='object-fit-scale-down h-screen w-screen'
                             src={slider[currentSlide].sliderImage} alt="" />
                         <div className='absolute inset-0 bg-black opacity-50'></div>
                     </div>
@@ -48,7 +49,7 @@ const Slider = () => {
             </div>
 
             {/* category cart */}
-            <div className='absolute lg:top-96 top-80'>
+            <div className='absolute lg:top-[450px] top-80'>
                 <div className='flex'>
                     <p className='pl-8 font-bold text-white text-lg'>Movies Category</p>
                     <p className='pl-7 font-bold cursor-pointer text-green-700'>See All</p>
