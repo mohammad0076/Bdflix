@@ -2,41 +2,35 @@ import React, { useState } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-const MoviesForYou = () => {
+const SeriesCard = () => {
+
 
     const PopularMovies = [
+
         {
-            "name": "Avengers",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+            "name": "Bandhobi",
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/SMuzMY44K2S.jpg"
         },
         {
-            "name": "Panther",
-            "PhotoUrl": "https://i.ibb.co/N34wFcF/Panther2.png"
+            "name": "Ekti Sobuj Bag",
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/9LmwlPa4D4r.jpg"
+        },
+        {
+            "name": "Shadi main...",
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/c23AE9SXUy7.jpg"
+        },
+        {
+            "name": "Shukrana",
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/v8e1BJ8lm4t.jpg"
+        },
+        {
+            "name": "Ant Man",
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/EfqP3Sq3Ej0.jpg"
         },
         {
             "name": "Bizli",
-            "PhotoUrl": "https://i.ibb.co/KDNWn2h/Bizli3.png"
+            "PhotoUrl": "https://cdn.bioscopelive.com/upload/content/tivoPortrait/hd/c23AE9SXUy7.jpg"
         },
-        {
-            "name": "Pashan",
-            "PhotoUrl": "https://i.ibb.co/K9n2VsZ/pasan4.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        }
     ]
 
     const [arrowButtonVisibility, setArrowButtonVisibility] = useState(false);
@@ -50,15 +44,14 @@ const MoviesForYou = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
+
     return (
-        <div className='ml-8'>
-            <div className='flex justify-between mb-3'>
-                <h1 className='text-md font-bold text-white'>Movies For You</h1>
-                <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
+        <div className='ml-8 my-12'>
+            <div className='mb-3'>
+                <h1 className='text-md   font-bold text-white'>Recent Episode</h1>
             </div>
             <>
-
-                <div className="carousel carousel-center space-x-4 h-[30vw]"
+                <div className="carousel carousel-center lg:h-[20vw]"
                     onMouseEnter={() => setArrowButtonVisibility(true)}
                     onMouseLeave={() => setArrowButtonVisibility(false)}
                 >
@@ -73,27 +66,26 @@ const MoviesForYou = () => {
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
 
-                                    <div className="carousel-item mr-2 relative">
+                                    <div className="rounded-md carousel-item mr-3 h-[200px] relative">
                                         <img
-                                            className='rounded-md lg:w-full lg:h-[300px]'
+                                            className='object-cover rounded-md w-[150px] h-[190px] lg:h-60 lg:w-full transition-transform duration-300 ease-in-out transform hover-zoom'
                                             src={images.PhotoUrl} alt=''
                                         ></img>
-                                        <h2 className="absolute bottom-40 text-center md:text-lg font-bold text-white mx-2 ">{images.name}</h2>
+                                        <h2 className=" absolute lg:bottom-3 text-center md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
                                     </div>
                                 </div>
                             ))
                         }
 
                         <button
-                            className={`lg:block hidden absolute bottom-[1200px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[400px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handlePrevSlide}
                         >
                             <FaAngleLeft />
                         </button>
 
-
                         <button
-                            className={`lg:block hidden absolute bottom-[1200px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[400px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handleNextSlide}
                         >
                             <FaAngleRight />
@@ -106,4 +98,4 @@ const MoviesForYou = () => {
     );
 };
 
-export default MoviesForYou;
+export default SeriesCard;

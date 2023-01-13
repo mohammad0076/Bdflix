@@ -53,23 +53,16 @@ const MovieCategoryCard = () => {
                     {
                         categoryImages.map((images, index) => (
                             <div
-
                                 key={index}
                                 className={`carousel-item m-2 cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                 style={{
                                     transform: `translateX(${-100 * currentIndex}%)`,
                                     transition: 'transform 0.3s ease-in-out',
-                                }}
-                            >
-                                <div className="carousel-item m-2 relative"
-
-                                >
-
+                                }}>
+                                <div className="carousel-item m-2 relative">
                                     <img
-                                        className='rounded-md w-60 h-60 transition-transform duration-300 ease-in-out transform hover-zoom'
-                                        src={images.image} alt=''
-
-                                    ></img>
+                                        className='rounded-md lg:w-60 lg:h-60 w-40 h-40 transition-transform duration-300 ease-in-out transform hover-zoom'
+                                        src={images.image} alt='' />
                                 </div>
                             </div>
                         ))

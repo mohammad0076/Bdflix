@@ -17,7 +17,7 @@ const MostPopular = () => {
             "PhotoUrl": "https://i.ibb.co/8mr5s3D/akti3.png"
         },
         {
-            "name": "Shadi main Joroor ana",
+            "name": "Shadi main...",
             "PhotoUrl": "https://i.ibb.co/gvYsqG1/shadhi4.png"
         },
         {
@@ -50,12 +50,10 @@ const MostPopular = () => {
     };
 
 
-
-
     return (
-        <div className='ml-8 mt-15'>
+        <div className='ml-8 my-12 lg:my-0'>
             <div className='flex justify-between mb-3'>
-                <h1 className='text-xl font-bold text-white'>Most Popular</h1>
+                <h1 className='text-md   font-bold text-white'>Most Popular</h1>
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
             <>
@@ -75,27 +73,26 @@ const MostPopular = () => {
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
 
-                                    <div className="carousel-item mr-3 relative">
+                                    <div className="carousel-item mr-3 h-[200px] relative">
                                         <img
-                                            className='object-cover rounded-sm w-[150px] h-[200px] lg:h-60 lg:w-full transition-transform duration-300 ease-in-out transform hover-zoom'
+                                            className='object-cover rounded-sm w-[150px] h-[190px] lg:h-60 lg:w-full transition-transform duration-300 ease-in-out transform hover-zoom'
                                             src={images.PhotoUrl} alt=''
                                         ></img>
-                                        <h2 className=" absolute lg:bottom-12 text-center md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
+                                        <h2 className=" absolute lg:bottom-3 text-center md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
                                     </div>
                                 </div>
                             ))
                         }
 
                         <button
-                            className={`lg:block hidden absolute bottom-[600px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[1550px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handlePrevSlide}
                         >
                             <FaAngleLeft />
                         </button>
 
-
                         <button
-                            className={`lg:block hidden absolute bottom-[600px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[1550px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handleNextSlide}
                         >
                             <FaAngleRight />

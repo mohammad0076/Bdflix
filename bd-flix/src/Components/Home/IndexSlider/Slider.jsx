@@ -31,7 +31,7 @@ const Slider = () => {
     }, [currentSlide]);
 
     return (
-        <div className='relative lg:h-[850px] h-[550px]'>
+        <div className='relative lg:h-[850px] h-[430px]'>
             <div className='relative'>
                 <div className='absolute inset-0'>
                     <div className='relative'>
@@ -50,9 +50,9 @@ const Slider = () => {
             </div>
 
             {/* category cart */}
-            <div className='absolute lg:top-[450px] top-48'>
+            <div className='absolute lg:top-[450px] top-56'>
                 <div className='flex'>
-                    <p className='pl-8 font-bold text-white text-lg'>Movies Category</p>
+                    <p className='pl-8 font-bold text-white text-md'>Movies Category</p>
                     <p className='pl-7 font-bold cursor-pointer text-green-700'>See All</p>
                 </div>
                 <MovieCategoryCard></MovieCategoryCard>
