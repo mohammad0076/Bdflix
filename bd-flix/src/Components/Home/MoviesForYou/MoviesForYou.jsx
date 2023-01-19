@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
+import './MovieForyou.css';
 
 const MoviesForYou = () => {
 
@@ -61,14 +61,14 @@ const MoviesForYou = () => {
     }
 
     return (
-        <div className='ml-8'>
+        <div className='relative ml-8'>
             <div className='flex justify-between mb-3'>
                 <h1 className='text-md font-bold text-white'>Movies For You</h1>
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
             <>
 
-                <div className="carousel carousel-center space-x-4 h-[30vw]"
+                <div className="carousel carousel-center space-x-4 lg:h-[30vh] h-[30vh]"
                     onMouseEnter={() => setArrowButtonVisibility(true)}
                     onMouseLeave={() => setArrowButtonVisibility(false)}
                 >
@@ -83,19 +83,24 @@ const MoviesForYou = () => {
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
 
-                                    <div className="carousel-item mr-2 relative">
-                                        <img
-                                            className='rounded-md lg:w-full lg:h-[300px]'
-                                            src={images.PhotoUrl} alt=''
-                                        ></img>
-                                        <h2 className="absolute bottom-40 text-center md:text-lg font-bold text-white mx-2 ">{images.name}</h2>
+                                    <div className="relative w-full lg:h-[190px] h-[200px] overflow-hidden mr-5 cursor-pointer carousel-item">
+                                        <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
+                                            <img
+                                                className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[200px]'
+                                                src={images.PhotoUrl} alt=''
+                                            ></img>
+                                            <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
+                                        </div>
+
+                                        <h2 className="absolute bottom-[8%] text-center md:text-lg text-white mx-2 ">{images.name}</h2>
+
                                     </div>
                                 </div>
                             ))
                         }
 
                         <button
-                            className={`lg:block hidden absolute bottom-[1200px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute top-[40%] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handlePrevSlide}
                         >
                             <FaAngleLeft />
@@ -103,7 +108,7 @@ const MoviesForYou = () => {
 
 
                         <button
-                            className={`lg:block hidden absolute bottom-[1200px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute top-[40%] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handleNextSlide}
                         >
                             <FaAngleRight />

@@ -4,7 +4,7 @@ import SeriesCard from '../SeriesCard/SeriesCard';
 const SeriesIndex = () => {
     return (
         <div className='relative'>
-            <div className='relative lg:h-[900px]'>
+            <div className='relative lg:h-[700px]'>
                 <img className='lg:w-[100vw] lg:h-[50vw] h-[80vh] object-cover' src="https://cdn.bioscopelive.com/upload/contentselector/background/lzJK57yLs8k.jpg" alt="" />
                 <div className='absolute top-0 py-10 px-6'>
                     <p className='font-bold text-2xl'>Ke?</p>

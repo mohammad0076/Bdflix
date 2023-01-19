@@ -36,15 +36,15 @@ const Slider = () => {
                 <div className='absolute inset-0'>
                     <div className='relative'>
                         <img
-                            className=' lg:h-screen lg:lg:w-screen transition transform duration-300 ease-in'
+                            className='h-[100%] lg:lg:w-screen transition transform duration-300 ease-in'
                             src={slider[currentSlide].sliderImage} alt="" />
-                        <div className='absolute inset-0 bg-black opacity-50'></div>
+                        <div className='absolute lg:inset-0 lg:bg-black lg:opacity-50'></div>
                     </div>
                 </div>
-                <button className='absolute top-14 lg:top-56 bg-white text-green-700 rounded-full left-0 p-4' onClick={handlePrevSlide}>
+                <button className='absolute top-14 lg:top-56 text-white text-2xl rounded-full left-0 p-4' onClick={handlePrevSlide}>
                     <FaAngleLeft />
                 </button>
-                <button className='absolute top-14 lg:top-56 bg-white rounded-full right-0 text-green-700 p-4' onClick={handleNextSlide}>
+                <button className='absolute top-14 lg:top-56 rounded-full right-0 text-white text-2xl p-4' onClick={handleNextSlide}>
                     <FaAngleRight />
                 </button>
             </div>
