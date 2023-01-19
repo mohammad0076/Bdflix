@@ -10,7 +10,7 @@ const Navbar = () => {
     const [active, setActive] = useState('home');
 
     const nav = <>
-        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
+        <li><Link  to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
