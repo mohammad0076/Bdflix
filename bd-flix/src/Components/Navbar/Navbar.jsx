@@ -19,16 +19,15 @@ const Navbar = () => {
     console.log(user)
 
     const nav = <>
-<<<<<<< HEAD
 
-        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
-=======
-        <li><Link  to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
->>>>>>> bfb34ec6fc314109c62f36ee937dcb2c6ebef7dc
+
+
+
+        <li><Link to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
+
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
-
 
 
 
