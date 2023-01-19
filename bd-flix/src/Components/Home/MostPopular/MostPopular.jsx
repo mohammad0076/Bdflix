@@ -13,6 +13,14 @@ const MostPopular = () => {
             "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
         },
         {
+            "name": "Bandhobi",
+            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
+        },
+        {
+            "name": "Bandhobi",
+            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
+        },
+        {
             "name": "Ekti Sobuj Bag",
             "PhotoUrl": "https://i.ibb.co/8mr5s3D/akti3.png"
         },
@@ -51,14 +59,14 @@ const MostPopular = () => {
 
 
     return (
-        <div className='ml-8 my-12 lg:my-0'>
+        <div className='relative ml-8 my-12 lg:my-0'>
             <div className='flex justify-between mb-3'>
                 <h1 className='text-md   font-bold text-white'>Most Popular</h1>
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
             <>
 
-                <div className="carousel carousel-center lg:h-[20vw]"
+                <div className="carousel carousel-center lg:h-[20vw] h-full"
                     onMouseEnter={() => setArrowButtonVisibility(true)}
                     onMouseLeave={() => setArrowButtonVisibility(false)}
                 >
@@ -73,26 +81,32 @@ const MostPopular = () => {
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
 
-                                    <div className="carousel-item mr-3 h-[200px] relative">
-                                        <img
-                                            className='object-cover rounded-sm w-[150px] h-[190px] lg:h-60 lg:w-full transition-transform duration-300 ease-in-out transform hover-zoom'
-                                            src={images.PhotoUrl} alt=''
-                                        ></img>
-                                        <h2 className=" absolute lg:bottom-3 text-center md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
+                                    <div className="carousel-item mr-3 lg:h-[200px] overflow-hidden">
+                                        <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
+                                            
+                                            <img
+                                                className='object-cover rounded-sm w-[150px] lg:h-[190px] lg:w-full'
+                                                src={images.PhotoUrl} alt=''
+                                            ></img>
+                                            
+                                            <h2 className=" absolute bottom-[8%] left-0 md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
+                                            <div className="most-popular-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
+                                        </div>
+
                                     </div>
                                 </div>
                             ))
                         }
 
                         <button
-                            className={`lg:block hidden absolute bottom-[1550px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[50%] text-2xl text-white rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handlePrevSlide}
                         >
                             <FaAngleLeft />
                         </button>
 
                         <button
-                            className={`lg:block hidden absolute bottom-[1550px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-[50%] text-2xl rounded-full right-0 text-white p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handleNextSlide}
                         >
                             <FaAngleRight />

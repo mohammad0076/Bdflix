@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
-import { FaInfoCircle } from 'react-icons/fa';
+
 
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
 
     const nav = <>
-        <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline"><FaHome /></Link></li>
-        <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaVideo /></Link></li>
-        <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaEnvelope /></Link></li>
-        <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaInfoCircle /></Link></li>
+        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
+        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
+        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
+        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
 
     </>
     const bottomNav = <>
