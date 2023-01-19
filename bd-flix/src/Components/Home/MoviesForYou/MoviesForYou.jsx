@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
 
 const MoviesForYou = () => {
+
+    const navigate = useNavigate();
+
 
     const PopularMovies = [
         {
@@ -50,6 +55,11 @@ const MoviesForYou = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
+    
+    const handleClickVideo = (movie) => {
+        navigate('/clickedvideo', { state: { movie } })
+    }
+
     return (
         <div className='ml-8'>
             <div className='flex justify-between mb-3'>
@@ -65,7 +75,7 @@ const MoviesForYou = () => {
                     <div className="carousel-item">
                         {
                             PopularMovies.map((images, index) => (
-                                <div
+                                <div  onClick={() => handleClickVideo(images.name)}
                                     key={index}
                                     className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                     style={{

@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import './poster.css';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const MostPopular = () => {
+
+    const navigate = useNavigate();
+
 
 
     const PopularMovies = [
@@ -49,6 +53,10 @@ const MostPopular = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
+    const handleClickVideo = (movie) => {
+        navigate('/clickedvideo', { state: { movie } })
+    }
+
 
     return (
         <div className='ml-8 my-12 lg:my-0'>
@@ -65,7 +73,7 @@ const MostPopular = () => {
                     <div className="carousel-item">
                         {
                             PopularMovies.map((images, index) => (
-                                <div
+                                <div onClick={() => handleClickVideo(images.name)}
                                     key={index}
                                     className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                     style={{
