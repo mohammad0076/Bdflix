@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaUserMinus } from 'react-icons/fa';
 import { FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
-import { FaInfoCircle } from 'react-icons/fa';
+import { FaInfoCircle, FaUserPlus } from 'react-icons/fa';
+import { AuthContext } from '../Context/Authprovider/Authprovider';
 
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
+    const { user, logout } = useContext(AuthContext)
+    const handlelogout = () => {
+        logout()
+            .then(() => { }).catch(error => console.error(error))
+    }
+    console.log(user)
 
     const nav = <>
-        <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline"><FaHome /></Link></li>
+        <li><Link to='/' className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline"><FaHome /></Link></li>
         <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaVideo /></Link></li>
         <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaEnvelope /></Link></li>
         <li><Link className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaInfoCircle /></Link></li>
 
+
+        {user?.uid ?
+            <>
+
+
+
+                <li className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline" onClick={handlelogout} ><Link to='/login'><FaUserMinus /></Link></li>
+
+            </>
+            :
+            <li><Link to='/login' className="text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none focus:shadow-outline">  <FaUserPlus /></Link></li>
+
+        }
+
+
     </>
+
     const bottomNav = <>
         <Link to='/'
             className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'home' ? 'bg-green-700' : ''}`}
@@ -35,19 +58,40 @@ const Navbar = () => {
         >
             <FaEnvelope />
         </Link>
-        <Link to='/profile'
-            className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'profile' ? 'bg-green-700' : ''}`}
-            onClick={() => setActive('profile')}
-        >
-            <div className="avatar-group -space-x-6">
-                <div className="avatar">
-                    <div className="w-10">
-                        <img src="" alt="" />
-                    </div>
-                </div>
+        {
+            user?.uid ?
+                <>
+                    <Link to='/profile'
+                        className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'profile' ? 'bg-green-700' : ''}`}
+                        onClick={() => setActive('profile')}
+                    >
+                        <div className="avatar-group -space-x-6">
+                            <div className={user.photoURL}>
+                                <div className="w-10">
+                                    <img src="" alt="" />
+                                </div>
+                            </div>
 
-            </div>
-        </Link>
+                        </div>
+                    </Link>
+                </>
+                :
+                <>
+                    <Link to='/profile'
+                        className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'profile' ? 'bg-green-700' : ''}`}
+                        onClick={() => setActive('profile')}
+                    >
+                        <div className="avatar-group -space-x-6">
+                            <div className="avatar">
+                                <div className="w-10">
+                                    <img src="" alt="" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </Link>
+                </>
+        }
     </>
     return (
         <>
