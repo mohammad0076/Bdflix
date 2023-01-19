@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,13 @@ const MoviesForYou = () => {
 
     const navigate = useNavigate();
 
+    const [MoviesForYou, setMoviesForYou] = useState([]);
+    useEffect(() => {
+        fetch('https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=eee5a0807cf7657a9864307cf8ff4c84')
+            .then(res => res.json())
+            .then(result => setMoviesForYou(result.results))
+    }, [])
+    let image = 'https://image.tmdb.org/t/p/w500/';
 
     const PopularMovies = [
         {
@@ -55,7 +63,7 @@ const MoviesForYou = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
-    
+
     const handleClickVideo = (movie) => {
         navigate('/clickedvideo', { state: { movie } })
     }
@@ -68,14 +76,14 @@ const MoviesForYou = () => {
             </div>
             <>
 
-                <div className="carousel carousel-center space-x-4 lg:h-[30vh] h-[30vh]"
+                <div className="carousel carousel-center space-x-4 lg:h-[40vh] h-[30vh]"
                     onMouseEnter={() => setArrowButtonVisibility(true)}
                     onMouseLeave={() => setArrowButtonVisibility(false)}
                 >
                     <div className="carousel-item">
                         {
-                            PopularMovies.map((images, index) => (
-                                <div  onClick={() => handleClickVideo(images.name)}
+                            MoviesForYou.map((images, index) => (
+                                <div onClick={() => handleClickVideo(images.original_title)}
                                     key={index}
                                     className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                     style={{
@@ -87,12 +95,13 @@ const MoviesForYou = () => {
                                         <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
                                             <img
                                                 className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
-                                                src={images.PhotoUrl} alt=''
+                                                src={image + images.poster_path} alt=''
                                             ></img>
                                             <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
                                         </div>
 
-                                        <h2 className="absolute bottom-[8%] text-center md:text-lg text-white mx-2 ">{images.name}</h2>
+                                        {/* <h2 className="absolute bottom-[8%] text-center md:text-lg text-white mx-2 ">{images.original_title
+}</h2> */}
 
                                     </div>
                                 </div>

@@ -99,7 +99,7 @@ const Login = () => {
 
                         </div>
                         <div className="form-control mt-6">
-                            <input onClick={handlegoogle} type="submit" className="btn btn-primary text-green-700 hover:text-green-400 lg:text-2xl  focus:outline-none " value="Google login" />
+                            <input onClick={handlegoogle} type="submit" className="btn bg-green-700 text-white hover:text-green-400 lg:text-lg  focus:outline-none " value="Google login" />
 
                         </div>
 

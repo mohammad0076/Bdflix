@@ -3,12 +3,18 @@ import './poster.css';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const MostPopular = () => {
 
     const navigate = useNavigate();
-
-
+    const [MostPopular, setMostPopular] = useState([]);
+    useEffect(() => {
+        fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=eee5a0807cf7657a9864307cf8ff4c84')
+            .then(res => res.json())
+            .then(result => setMostPopular(result.results))
+    }, [])
+    let image = 'https://image.tmdb.org/t/p/w500/';
 
     const PopularMovies = [
         {
@@ -79,7 +85,7 @@ const MostPopular = () => {
                 >
                     <div className="carousel-item">
                         {
-                            PopularMovies.map((images, index) => (
+                            MostPopular.map((images, index) => (
                                 <div onClick={() => handleClickVideo(images.name)}
                                     key={index}
                                     className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
@@ -90,12 +96,12 @@ const MostPopular = () => {
 
                                     <div className="carousel-item mr-3 lg:h-[200px] overflow-hidden">
                                         <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
-                                            
+
                                             <img
                                                 className='object-cover rounded-sm w-[100px] lg:h-[190px] lg:w-full'
-                                                src={images.PhotoUrl} alt=''
+                                                src={image+images.poster_path} alt=''
                                             ></img>
-                                            
+
                                             <h2 className=" absolute bottom-[8%] left-0 md:text-md text-md font-semibold text-white mx-2 ">{images.name}</h2>
                                             <div className="most-popular-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
                                         </div>
