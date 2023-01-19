@@ -10,7 +10,7 @@ import { AiFillPlayCircle } from 'react-icons/ai';
 const ClickedVideo = () => {
 
     const { state } = useLocation();
-    const movie = state.movie;
+    const movie = state?.movie;
 
 
 

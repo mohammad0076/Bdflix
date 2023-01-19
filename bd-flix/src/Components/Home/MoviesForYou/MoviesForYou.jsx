@@ -86,7 +86,7 @@ const MoviesForYou = () => {
                                     <div className="relative w-full lg:h-[190px] h-[200px] overflow-hidden mr-5 cursor-pointer carousel-item">
                                         <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
                                             <img
-                                                className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[200px]'
+                                                className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
                                                 src={images.PhotoUrl} alt=''
                                             ></img>
                                             <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>

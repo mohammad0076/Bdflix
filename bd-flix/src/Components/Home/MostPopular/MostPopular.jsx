@@ -11,15 +11,6 @@ const MostPopular = () => {
 
 
     const PopularMovies = [
-
-        {
-            "name": "Bandhobi",
-            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
-        },
-        {
-            "name": "Bandhobi",
-            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
-        },
         {
             "name": "Bandhobi",
             "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
@@ -47,7 +38,15 @@ const MostPopular = () => {
         {
             "name": "Movie Name",
             "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
-        }
+        },
+        {
+            "name": "Bandhobi",
+            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
+        },
+        {
+            "name": "Bandhobi",
+            "PhotoUrl": "https://i.ibb.co/7rjktyD/bandhobi2.png"
+        },
     ]
 
     const [arrowButtonVisibility, setArrowButtonVisibility] = useState(false);
@@ -93,7 +92,7 @@ const MostPopular = () => {
                                         <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
                                             
                                             <img
-                                                className='object-cover rounded-sm w-[150px] lg:h-[190px] lg:w-full'
+                                                className='object-cover rounded-sm w-[100px] lg:h-[190px] lg:w-full'
                                                 src={images.PhotoUrl} alt=''
                                             ></img>
                                             
