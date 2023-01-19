@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaUserMinus } from 'react-icons/fa';
 import { FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
+
+import { FaInfoCircle, FaUserPlus } from 'react-icons/fa';
+import { AuthContext } from '../Context/Authprovider/Authprovider';
 
 
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
+    const { user, logout } = useContext(AuthContext)
+    const handlelogout = () => {
+        logout()
+            .then(() => { }).catch(error => console.error(error))
+    }
+    console.log(user)
 
     const nav = <>
+
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
 
+
+
+
+
+
+
+
+
+
     </>
+
     const bottomNav = <>
         <Link to='/'
             className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'home' ? 'bg-green-700' : ''}`}
@@ -35,23 +55,14 @@ const Navbar = () => {
         >
             <FaEnvelope />
         </Link>
-        <Link to='/profile'
-            className={`text-2xl text-center py-2 px-6 rounded-full hover:bg-green-700 cursor-pointer ${active === 'profile' ? 'bg-green-700' : ''}`}
-            onClick={() => setActive('profile')}
-        >
-            <div className="avatar-group -space-x-6">
-                <div className="avatar">
-                    <div className="w-10">
-                        <img src="" alt="" />
-                    </div>
-                </div>
-
-            </div>
-        </Link>
+        {
+            <li>  </li>
+        }
     </>
     return (
         <>
             <div className="navbar bg-black">
+
                 <div className="navbar-start">
                     {/* <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -75,15 +86,19 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to="/profile" className=' md:block lg:block hidden'>
-                        <div className="avatar-group -space-x-6">
-                            <div className="avatar">
-                                <div className="w-12">
-                                    <img src="" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
+                    {user?.uid ?
+                        <>
+
+
+
+                            <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
+
+                        </>
+                        :
+                        <li><Link to='/login' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">  Login</Link></li>
+
+                    }
+
                     {/* <button onClick={handleLogOut} className='btn bg-orange-600 rounded-3xl text-white'>LogOut</button> */}
                 </div>
             </div>
