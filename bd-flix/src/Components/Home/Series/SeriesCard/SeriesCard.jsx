@@ -84,14 +84,14 @@ const SeriesCard = () => {
                         }
 
                         <button
-                            className={`lg:block hidden absolute bottom-[400px] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-56 text-2xl text-white rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handlePrevSlide}
                         >
                             <FaAngleLeft />
                         </button>
 
                         <button
-                            className={`lg:block hidden absolute bottom-[400px] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                            className={`lg:block hidden absolute bottom-56 text-2xl rounded-full right-0 text-white p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                             onClick={handleNextSlide}
                         >
                             <FaAngleRight />
