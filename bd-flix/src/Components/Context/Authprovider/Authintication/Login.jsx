@@ -4,12 +4,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
+import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+
 
 
 const Login = () => {
     const [error, setError] = useState('')
 
-
+    useTitle('Login')
 
 
 

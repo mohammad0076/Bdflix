@@ -3,8 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
+import useTitle from '../../../../Hooks/UseTitle/UseTitle';
 
 const Signup = () => {
+
+
+    useTitle('Signup')
     const navigate = useNavigate()
     const [error, setError] = useState('')
 

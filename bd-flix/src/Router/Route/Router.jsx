@@ -9,7 +9,9 @@ import Reset from "../../Components/Context/Authprovider/Authintication/Reset";
 import Signup from "../../Components/Context/Authprovider/Authintication/Signup";
 
 import HomePage from "../../Components/Home/IndexPage/HomePage";
+import Tvshows from "../../Components/Tvshows/Tvshows";
 import Main from "../../Main/Main";
+import Private from "../Private";
 
 const router = createBrowserRouter([
     {
@@ -35,8 +37,7 @@ const router = createBrowserRouter([
             {
                 path: '/forget',
                 element: <Forget></Forget>
-            },
-            {
+            }, {
                 path: '/resetform',
                 element: <Reset></Reset>
 
