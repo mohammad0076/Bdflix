@@ -1,10 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaUserMinus } from 'react-icons/fa';
-import { FaVideo } from 'react-icons/fa';
+import { FaHome, FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
-
-import { FaInfoCircle, FaUserPlus } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
 
 
@@ -16,27 +13,12 @@ const Navbar = () => {
         logout()
             .then(() => { }).catch(error => console.error(error))
     }
-    console.log(user)
 
     const nav = <>
-
-
-
-
         <li><Link to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
-
-        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
-        <li><Link to='/tvshows' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
-        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
-
-
-
-
-
-
-
-
-
+        <li><Link to="/Premium" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
+        <li><Link to="/tvshows" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
+        <li><Link to="/movies" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
     </>
 
     const bottomNav = <>
@@ -91,9 +73,6 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {user?.uid ?
                         <>
-
-
-
                             <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
 
                         </>

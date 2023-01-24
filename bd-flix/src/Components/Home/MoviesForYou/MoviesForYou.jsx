@@ -8,14 +8,26 @@ import './MovieForyou.css';
 const MoviesForYou = () => {
 
     const navigate = useNavigate();
-
+    // const [MoviesForYou] = Allmovies();
     const [MoviesForYou, setMoviesForYou] = useState([]);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=eee5a0807cf7657a9864307cf8ff4c84')
+        setLoading(true);
+        fetch('http://localhost:5000/MoviesForYou')
             .then(res => res.json())
-            .then(result => setMoviesForYou(result.results))
+            .then(res => {
+                setMoviesForYou(res)
+                setLoading(false)
+            });
     }, [])
-    let image = 'https://image.tmdb.org/t/p/w500/';
+
+    // useEffect(() => {
+    //     fetch('https://api.themoviedb.org/3/discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc&api_key=eee5a0807cf7657a9864307cf8ff4c84')
+    //         .then(res => res.json())
+    //         .then(result => setMoviesForYou(result.results))
+    // }, [])
+
+    // let image = 'https://image.tmdb.org/t/p/w500/';
 
     const PopularMovies = [
         {
@@ -75,55 +87,58 @@ const MoviesForYou = () => {
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
             <>
+                {
+                    loading ? "Loading..." : <div className="carousel carousel-center space-x-4 lg:h-[40vh] h-[30vh]"
+                        onMouseEnter={() => setArrowButtonVisibility(true)}
+                        onMouseLeave={() => setArrowButtonVisibility(false)}
+                    >
+                        <div className="carousel-item">
+                            {
+                                MoviesForYou.map((images, index) => (
+                                    <div onClick={() => handleClickVideo(images.original_title)}
+                                        key={index}
+                                        className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
+                                        style={{
+                                            transform: `translateX(${-100 * currentIndex}%)`,
+                                            transition: 'transform 0.3s ease-in-out',
+                                        }}>
 
-                <div className="carousel carousel-center space-x-4 lg:h-[40vh] h-[30vh]"
-                    onMouseEnter={() => setArrowButtonVisibility(true)}
-                    onMouseLeave={() => setArrowButtonVisibility(false)}
-                >
-                    <div className="carousel-item">
-                        {
-                            MoviesForYou.map((images, index) => (
-                                <div onClick={() => handleClickVideo(images.original_title)}
-                                    key={index}
-                                    className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
-                                    style={{
-                                        transform: `translateX(${-100 * currentIndex}%)`,
-                                        transition: 'transform 0.3s ease-in-out',
-                                    }}>
+                                        <div className="relative w-full lg:h-[190px] h-[200px] overflow-hidden mr-5 cursor-pointer carousel-item">
+                                            <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
 
-                                    <div className="relative w-full lg:h-[190px] h-[200px] overflow-hidden mr-5 cursor-pointer carousel-item">
-                                        <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
-                                            <img
-                                                className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
-                                                src={image + images.poster_path} alt=''
-                                            ></img>
-                                            <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
-                                        </div>
+                                                <img
+                                                    className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
+                                                    src={images.poster_path} alt=''
+                                                ></img>
+                                                <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
+                                            </div>
 
-                                        {/* <h2 className="absolute bottom-[8%] text-center md:text-lg text-white mx-2 ">{images.original_title
+                                            {/* <h2 className="absolute bottom-[8%] text-center md:text-lg text-white mx-2 ">{images.original_title
 }</h2> */}
 
+                                        </div>
                                     </div>
-                                </div>
-                            ))
-                        }
+                                ))
+                            }
 
-                        <button
-                            className={`lg:block hidden absolute top-[40%] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
-                            onClick={handlePrevSlide}
-                        >
-                            <FaAngleLeft />
-                        </button>
+                            <button
+                                className={`lg:block hidden absolute top-[40%] bg-white text-red-700 rounded-full left-0 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                                onClick={handlePrevSlide}
+                            >
+                                <FaAngleLeft />
+                            </button>
 
 
-                        <button
-                            className={`lg:block hidden absolute top-[40%] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
-                            onClick={handleNextSlide}
-                        >
-                            <FaAngleRight />
-                        </button>
+                            <button
+                                className={`lg:block hidden absolute top-[40%] bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
+                                onClick={handleNextSlide}
+                            >
+                                <FaAngleRight />
+                            </button>
+                        </div>
                     </div>
-                </div>
+                }
+
 
             </>
         </div>

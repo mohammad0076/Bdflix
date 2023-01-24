@@ -1,11 +1,12 @@
 import React from 'react';
+import SeriesIndex from '../Home/Series/SeriesIndex/SeriesIndex';
 
-const Tvshows = () => {
+const TvShows = () => {
     return (
         <div>
-            <Tvshows></Tvshows>
+            <SeriesIndex></SeriesIndex>
         </div>
     );
 };
 
-export default Tvshows;
+export default TvShows;

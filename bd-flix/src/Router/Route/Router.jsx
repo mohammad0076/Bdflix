@@ -1,17 +1,15 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-
 import ClickedVideo from "../../Components/ClickedVideo/ClickedVideo";
-
 import Forget from "../../Components/Context/Authprovider/Authintication/Forget";
 import Login from "../../Components/Context/Authprovider/Authintication/Login";
 import Reset from "../../Components/Context/Authprovider/Authintication/Reset";
 import Signup from "../../Components/Context/Authprovider/Authintication/Signup";
-
 import HomePage from "../../Components/Home/IndexPage/HomePage";
-import Tvshows from "../../Components/Tvshows/Tvshows";
+import Movies from "../../Components/Movies/Movies";
+import Premium from "../../Components/Premium/Premium";
+// import TvShows from "../../Components/TvShows/TvShows";
 import Main from "../../Main/Main";
-import Private from "../Private";
 
 const router = createBrowserRouter([
     {
@@ -37,11 +35,29 @@ const router = createBrowserRouter([
             {
                 path: '/forget',
                 element: <Forget></Forget>
-            }, {
+            },
+            {
                 path: '/resetform',
                 element: <Reset></Reset>
 
-            }
+            },
+           
+            {
+                path: '/movies',
+                element: <Movies></Movies>
+
+            },
+            // {
+            //     path: '/tvshows',
+            //     element: <TvShow></TvShows>
+
+            // },
+            {
+                path: '/premium',
+                element: <Premium></Premium>
+
+            },
+
         ]
     },
 ]);
