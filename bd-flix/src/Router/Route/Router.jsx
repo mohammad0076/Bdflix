@@ -13,6 +13,7 @@ import Tvshows from "../../Components/Tvshows/Tvshows";
 import Main from "../../Main/Main";
 import Private from "../Private";
 
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
                 path: '/resetform',
                 element: <Reset></Reset>
 
-            }
+            },
         ]
     },
 ]);

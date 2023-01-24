@@ -5,6 +5,8 @@ import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+import useToken from '../../../../Hooks/UseTitle/UseToken';
+
 
 
 
@@ -15,7 +17,10 @@ const Login = () => {
 
 
 
-    const { signIn } = useContext(AuthContext)
+
+
+    const { signIn, user } = useContext(AuthContext)
+    const [token] = useToken(user)
     const navigate = useNavigate()
     const location = useLocation();
     const form = location?.state?.from?.pathname || '/';
@@ -27,7 +32,8 @@ const Login = () => {
         const password = form.password.value;
         signIn(email, password).then(result => {
             const user = result.user;
-            console.log(user)
+
+            // console.log(user)
             form.reset();
             setError('')
             navigate('/')
@@ -52,6 +58,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+
                 navigate('/')
             })
             .catch(error => console.error(error))
