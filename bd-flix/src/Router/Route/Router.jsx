@@ -1,5 +1,10 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Admin from "../../Components/Banner/admin/Admin";
+import AllMovies from "../../Components/Banner/admin/Layout/AllMovies";
+
+import AllUsers from "../../Components/Banner/admin/Layout/AllUsers";
+import UploadMovies from "../../Components/Banner/admin/Layout/UploadMovies";
 import ClickedVideo from "../../Components/ClickedVideo/ClickedVideo";
 import Forget from "../../Components/Context/Authprovider/Authintication/Forget";
 import Login from "../../Components/Context/Authprovider/Authintication/Login";
@@ -57,8 +62,32 @@ const router = createBrowserRouter([
                 element: <Premium></Premium>
 
             },
+        
+      
+           
 
         ]
     },
+    {
+        path:'/admin',
+        element:<Admin/>,
+        children:[
+            {
+                path: '/admin/allmovies',
+                element:<AllMovies/>
+
+            },
+            {
+                path: '/admin/allusers',
+                element:<AllUsers/>
+
+            },
+            {
+                path: '/admin/uploadmovies',
+                element:<UploadMovies/>
+
+            },
+        ]
+    }
 ]);
 export default router;

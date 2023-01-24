@@ -19,6 +19,7 @@ const Navbar = () => {
         <li><Link to="/Premium" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link to="/tvshows" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link to="/movies" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
+ 
     </>
 
     const bottomNav = <>
@@ -73,7 +74,9 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {user?.uid ?
                         <>
+                        <li><Link to="/admin" className="text-white font-bold mr-10 hover:text-green-400 focus:outline-none focus:shadow-outline">  Admin</Link></li>
                             <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
+                            
 
                         </>
                         :
