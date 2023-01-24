@@ -4,6 +4,7 @@ import { BiListPlus, BiShareAlt } from 'react-icons/bi';
 import { FiDownload } from 'react-icons/fi';
 import { MdPlaylistAdd } from 'react-icons/md';
 import { AiFillPlayCircle } from 'react-icons/ai';
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 
 
 
@@ -56,7 +57,7 @@ const ClickedVideo = () => {
         <div className='mx-2 md:mx-4'>
             <div className='lg:grid grid-cols-3 gap-1'>
                 <div className='col-span-2'>
-                    <div  className='relative'>
+                    <div className='relative'>
                         <img src='https://i.ibb.co/gTqPc2T/Rectangle-39-5.png' alt='poster'></img>
                         <AiFillPlayCircle className='text-4xl md:text-6xl text-red-600 absolute top-1/2 left-1/2'></AiFillPlayCircle>
 
@@ -68,6 +69,17 @@ const ClickedVideo = () => {
                             <p className=' mt-2'>Bangladeshi superhero movie</p>
                         </div>
                         <div className='flex justify-center items-center gap-2'>
+
+                            <div>
+                                <FaThumbsUp className="text-2xl mx-auto" />
+                                <p className="text-xs">Likes</p>
+                            </div>
+
+                            <div>
+                                <FaThumbsDown className="text-2xl mx-auto" />
+                                <p className="text-xs">DisLikes</p>
+                            </div>
+
                             <div className=''>
                                 <MdPlaylistAdd className='text-2xl mx-auto'></MdPlaylistAdd>
                                 <p className='text-xs -mt-1'>WatchList</p>
