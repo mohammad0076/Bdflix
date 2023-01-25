@@ -3,7 +3,7 @@ import Allmovies from '../../Hooks/Allmovies/Allmovies';
 import AllmoviesCard from './AllmoviesCard';
 
 const Movies = () => {
-    const [MostPopular, MoviesForYou, ComadyMovies, loading] = Allmovies();
+    const [allMovies, loading] = Allmovies();
     return (
         <>
             <h2 className='p-3 font-semibold text-white'> All Movies </h2>
@@ -14,14 +14,9 @@ const Movies = () => {
                     </div> :
                         <>
                             {
-                                MostPopular.map(data => <AllmoviesCard loading={loading} MostPopular={data}></AllmoviesCard>)
+                                allMovies.map(data => <AllmoviesCard loading={loading} allMovies={data}></AllmoviesCard>)
                             }
-                            {
-                                MoviesForYou.map(data => <AllmoviesCard loading={loading} MostPopular={data}></AllmoviesCard>)
-                            }
-                            {
-                                ComadyMovies.map(data => <AllmoviesCard loading={loading} MostPopular={data}></AllmoviesCard>)
-                            }
+                    
                         </>
                 }
 

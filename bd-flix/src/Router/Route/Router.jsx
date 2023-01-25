@@ -13,7 +13,6 @@ import Signup from "../../Components/Context/Authprovider/Authintication/Signup"
 import HomePage from "../../Components/Home/IndexPage/HomePage";
 import Movies from "../../Components/Movies/Movies";
 import Premium from "../../Components/Premium/Premium";
-// import TvShows from "../../Components/TvShows/TvShows";
 import Main from "../../Main/Main";
 
 const router = createBrowserRouter([
@@ -26,8 +25,8 @@ const router = createBrowserRouter([
                 element: <HomePage></HomePage>
             },
             {
-
-                path: '/clickedvideo',
+                path: '/clickedvideo/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             }, {
                 path: '/login',
@@ -46,7 +45,7 @@ const router = createBrowserRouter([
                 element: <Reset></Reset>
 
             },
-           
+
             {
                 path: '/movies',
                 element: <Movies></Movies>
