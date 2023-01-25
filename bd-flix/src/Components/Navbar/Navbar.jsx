@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
-
-
+import logo from '../../images/brand.png'
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
@@ -59,10 +58,9 @@ const Navbar = () => {
                     </div> */}
 
                     <div className='flex gap-2'>
-                        <h1 className='btn rounded font-serif shadow-inner bg-green-700 text-xl font-bold text-white'>BD-FLIX</h1>
-                        <input type="text" placeholder="Search Movies" className="input lg:w-full h-10 rounded-3xl bg-[#3a3b3c] max-w-xs" />
+                        <div className='btn rounded font-mono uppercase bg-none shadow-inner text-xl font-bold text-white'><img src={logo} alt=''></img>-FLIX</div>
+                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />
                     </div>
-
 
                 </div>
                 <div className="navbar-center hidden lg:flex">

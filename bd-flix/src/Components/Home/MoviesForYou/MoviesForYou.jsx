@@ -8,12 +8,13 @@ import './MovieForyou.css';
 const MoviesForYou = () => {
 
     const navigate = useNavigate();
-    // const [MoviesForYou] = Allmovies();
+
     const [MoviesForYou, setMoviesForYou] = useState([]);
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:5000/MoviesForYou')
+        fetch('http://localhost:5000/allmovie/MoviesForYou')
             .then(res => res.json())
             .then(res => {
                 setMoviesForYou(res)
@@ -107,7 +108,7 @@ const MoviesForYou = () => {
                                             <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
 
                                                 <img
-                                                    className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
+                                                    className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[200px]'
                                                     src={images.poster_path} alt=''
                                                 ></img>
                                                 <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>

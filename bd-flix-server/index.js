@@ -16,15 +16,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run() {
     try {
-        const MostPopularMoviesCategoriCollection = client.db("bdFlix").collection("MostPopularMovie");
-        const MoviesForYouCategoriCollection = client.db("bdFlix").collection("MoviesForYou");
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
-
-        app.get('/mostPopularMovies', async (req, res) => {
-            const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
-            res.send(result);
-        })
 
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
@@ -32,8 +25,23 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/MoviesForYou', async (req, res) => {
-            const result = await MoviesForYouCategoriCollection.find({}).toArray();
+        app.get('/movies', async (req, res) => {
+            const result = await allMoviesCollection.find({}).toArray();
+            res.send(result);
+        })
+
+        // get movie by category
+        app.get('/allmovie/:category', async (req, res) => {
+            const allmovies = req.params.category;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.filter(getmovie => getmovie.category == allmovies);
+            res.send(result);
+        })
+
+        app.get('/movie/:id', async (req, res) => {
+            const allmovies = req.params.id;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.find(getmovie => getmovie.id == allmovies);
             res.send(result);
         })
 

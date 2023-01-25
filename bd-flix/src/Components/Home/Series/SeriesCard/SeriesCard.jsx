@@ -3,7 +3,6 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const SeriesCard = () => {
 
-    // /discover/movie?with_people=108916,7467&sort_by=popularity.desc
     const [Serial, setSerial] = useState([]);
     useEffect(() => {
         fetch('https://api.themoviedb.org/3/discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10&api_key=eee5a0807cf7657a9864307cf8ff4c84')
@@ -11,6 +10,7 @@ const SeriesCard = () => {
             .then(result => setSerial(result.results))
     }, [])
     let image = 'https://image.tmdb.org/t/p/w500/';
+    
     // const PopularMovies = [
 
     //     {
@@ -72,7 +72,7 @@ const SeriesCard = () => {
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
 
-                                    <div className="rounded-md carousel-item mr-3 h-[200px] relative">
+                                    <div className="rounded-md carousel-item h-[200px] relative">
                                         <img
                                             className='object-cover rounded-md w-[150px] h-[190px] lg:h-60 lg:w-full transition-transform duration-300 ease-in-out transform hover-zoom'
                                             src={image+images.poster_path} alt=''
