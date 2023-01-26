@@ -15,8 +15,9 @@ const Movies = () => {
                         <>
                             {
                                 allMovies.map(data => <AllmoviesCard loading={loading} allMovies={data}></AllmoviesCard>)
+                                
                             }
-                    
+
                         </>
                 }
 

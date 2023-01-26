@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './MovieForyou.css';
 
 const MoviesForYou = () => {
@@ -96,7 +96,7 @@ const MoviesForYou = () => {
                         <div className="carousel-item">
                             {
                                 MoviesForYou.map((images, index) => (
-                                    <div onClick={() => handleClickVideo(images.original_title)}
+                                    <Link to={`/moviesforyou/${images.id}`}
                                         key={index}
                                         className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                         style={{
@@ -118,7 +118,7 @@ const MoviesForYou = () => {
 }</h2> */}
 
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                             }
 

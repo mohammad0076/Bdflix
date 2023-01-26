@@ -23,7 +23,6 @@ async function run() {
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
 
-<<<<<<< HEAD
         //user collection
         const usersCollection = client.db("bdFlix").collection("user");
 
@@ -32,8 +31,7 @@ async function run() {
             res.send(result);
         })
 
-=======
->>>>>>> 1460cfe18dabbee3d1bf73f76e4b86e11097b169
+
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
             const result = await allMoviesCollection.insertOne(allmovies);
