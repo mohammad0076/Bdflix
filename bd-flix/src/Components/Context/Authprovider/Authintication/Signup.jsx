@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+import { setAuthToken } from '../../../../Token/AuthToken';
 
 const Signup = () => {
 
 
     useTitle('Signup')
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const [error, setError] = useState('')
 
 
@@ -41,12 +44,16 @@ const Signup = () => {
             .then(imageData => {
                 console.log(imageData.data.display_url)
                 createUser(email, password)
-                .then(result => {
-                    updateUserProfile(name, imageData.data.display_url)
-                    .then(() => {
-                        navigate(form, {replace: true})
+                    .then(result => {
+                        setAuthToken(result.user)
+                        updateUserProfile(name, imageData.data.display_url)
+
+                            .then(() => {
+                                navigate(from, { replace: true })
+                            }).catch(error => console.log(error))
+
                     }).catch(error => console.log(error))
-                }).catch(error => console.log(error))
+
             }).catch(error => console.log(error))
 
 
@@ -108,7 +115,7 @@ const Signup = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input name="password" type="text" placeholder="password" className="input input-bordered" required />
+                            <input name="password" type="password" placeholder="password" className="input input-bordered" required />
 
                         </div>
                         <div className="form-control mt-6">

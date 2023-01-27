@@ -28,7 +28,18 @@ const router = createBrowserRouter([
                 path: '/clickedvideo/:id',
                 loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
-            }, {
+            },
+            {
+                path: '/moviesforyou/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                element: <ClickedVideo></ClickedVideo>
+            },
+            {
+                path: '/allmovie/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                element: <ClickedVideo></ClickedVideo>
+            },
+            {
                 path: '/login',
                 element: <Login></Login>
             },
@@ -61,29 +72,29 @@ const router = createBrowserRouter([
                 element: <Premium></Premium>
 
             },
-        
-      
-           
+
+
+
 
         ]
     },
     {
-        path:'/admin',
-        element:<Admin/>,
-        children:[
+        path: '/admin',
+        element: <Admin />,
+        children: [
             {
                 path: '/admin/allmovies',
-                element:<AllMovies/>
+                element: <AllMovies />
 
             },
             {
                 path: '/admin/allusers',
-                element:<AllUsers/>
+                element: <AllUsers />
 
             },
             {
                 path: '/admin/uploadmovies',
-                element:<UploadMovies/>
+                element: <UploadMovies />
 
             },
         ]
