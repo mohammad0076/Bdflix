@@ -30,6 +30,7 @@ async function run() {
         const MoviesForYouCategoriCollection = client.db("bdFlix").collection("MoviesForYou");
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
+        const adminuploadcollection = client.db("bdFlix").collection("adminuploadsshows");
 
         app.get('/mostPopularMovies', async (req, res) => {
             const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
@@ -51,6 +52,18 @@ async function run() {
             const comedies = await ComediesCollection.find({}).toArray();
             res.send(comedies);
         })
+
+
+        app.post('/uploadmovies', async (req, res) => {
+            const add = req.body;
+            const result = await adminuploadcollection.insertOne(add);
+            res.send(result);
+        });
+        app.get('/uploadmovies', async (req, res) => {
+            const add = req.body;
+            const result = await adminuploadcollection.find(add).toArray();
+            res.send(result);
+        });
 
     }
     finally { }
