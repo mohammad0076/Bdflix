@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './MovieForyou.css';
 
 const MoviesForYou = () => {
 
     const navigate = useNavigate();
-    // const [MoviesForYou] = Allmovies();
+
     const [MoviesForYou, setMoviesForYou] = useState([]);
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:5000/MoviesForYou')
+        fetch('http://localhost:5000/allmovie/MoviesForYou')
             .then(res => res.json())
             .then(res => {
                 setMoviesForYou(res)
@@ -29,40 +30,40 @@ const MoviesForYou = () => {
 
     // let image = 'https://image.tmdb.org/t/p/w500/';
 
-    const PopularMovies = [
-        {
-            "name": "Avengers",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Panther",
-            "PhotoUrl": "https://i.ibb.co/N34wFcF/Panther2.png"
-        },
-        {
-            "name": "Bizli",
-            "PhotoUrl": "https://i.ibb.co/KDNWn2h/Bizli3.png"
-        },
-        {
-            "name": "Pashan",
-            "PhotoUrl": "https://i.ibb.co/K9n2VsZ/pasan4.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        },
-        {
-            "name": "Movie Name",
-            "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
-        }
-    ]
+    // const PopularMovies = [
+    //     {
+    //         "name": "Avengers",
+    //         "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+    //     },
+    //     {
+    //         "name": "Panther",
+    //         "PhotoUrl": "https://i.ibb.co/N34wFcF/Panther2.png"
+    //     },
+    //     {
+    //         "name": "Bizli",
+    //         "PhotoUrl": "https://i.ibb.co/KDNWn2h/Bizli3.png"
+    //     },
+    //     {
+    //         "name": "Pashan",
+    //         "PhotoUrl": "https://i.ibb.co/K9n2VsZ/pasan4.png"
+    //     },
+    //     {
+    //         "name": "Movie Name",
+    //         "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+    //     },
+    //     {
+    //         "name": "Movie Name",
+    //         "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+    //     },
+    //     {
+    //         "name": "Movie Name",
+    //         "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+    //     },
+    //     {
+    //         "name": "Movie Name",
+    //         "PhotoUrl": "https://i.ibb.co/rs5DVjP/avenger1.png"
+    //     }
+    // ]
 
     const [arrowButtonVisibility, setArrowButtonVisibility] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -95,7 +96,11 @@ const MoviesForYou = () => {
                         <div className="carousel-item">
                             {
                                 MoviesForYou.map((images, index) => (
-                                    <div onClick={() => handleClickVideo(images.original_title)}
+<<<<<<< HEAD
+                                    <Link to={`/movies/${images.id}`}
+=======
+                                    <Link to={`/moviesforyou/${images.id}`}
+>>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
                                         key={index}
                                         className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                         style={{
@@ -107,7 +112,7 @@ const MoviesForYou = () => {
                                             <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
 
                                                 <img
-                                                    className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[120px]'
+                                                    className='rounded-md object-cover lg:w-full w-full lg:h-[190px] h-[200px]'
                                                     src={images.poster_path} alt=''
                                                 ></img>
                                                 <div className="movie-for-you-gradient absolute bottom-0 left-0 w-full h-2/6"></div>
@@ -117,7 +122,7 @@ const MoviesForYou = () => {
 }</h2> */}
 
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                             }
 
