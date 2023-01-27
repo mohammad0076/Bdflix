@@ -16,7 +16,6 @@ const HomePage = () => {
             <MostPopular></MostPopular>
             <MoviesForYou></MoviesForYou><br /><br />
             <SeriesIndex></SeriesIndex>
-
         </div>
     );
 };

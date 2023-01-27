@@ -3,16 +3,12 @@ import './poster.css';
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import Allmovies from '../../../Hooks/Allmovies/Allmovies';
-
-const MostPopular = () => {
-
+const PopularMovies = () => {
     const navigate = useNavigate();
     const [MostPopular] = Allmovies();
 
     // let image = 'https://image.tmdb.org/t/p/w500/';
-
     const PopularMovies = [
         {
             "name": "Bandhobi",
@@ -71,7 +67,7 @@ const MostPopular = () => {
     return (
         <div className='relative ml-8 my-12 lg:my-0'>
             <div className='flex justify-between mb-3'>
-                <h1 className='text-md   font-bold text-white'>Most Popular</h1>
+                <h1 className='text-md   font-bold text-white'>Popular Movies</h1>
                 <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
             </div>
             <>
@@ -90,7 +86,6 @@ const MostPopular = () => {
                                         transform: `translateX(${-100 * currentIndex}%)`,
                                         transition: 'transform 0.3s ease-in-out',
                                     }}>
-
                                     <div className="carousel-item mr-3 lg:h-[200px] overflow-hidden">
                                         <div className='relative transition-transform duration-300 ease-in-out transform hover-zoom'>
 
@@ -129,4 +124,4 @@ const MostPopular = () => {
     );
 };
 
-export default MostPopular;
+export default PopularMovies;

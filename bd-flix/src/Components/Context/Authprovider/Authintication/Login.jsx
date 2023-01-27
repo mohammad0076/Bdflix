@@ -5,7 +5,7 @@ import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
-import useToken from '../../../../Hooks/UseTitle/UseToken';
+
 
 
 
@@ -20,7 +20,7 @@ const Login = () => {
 
 
     const { signIn, user } = useContext(AuthContext)
-    const [token] = useToken(user)
+
     const navigate = useNavigate()
     const location = useLocation();
     const form = location?.state?.from?.pathname || '/';
