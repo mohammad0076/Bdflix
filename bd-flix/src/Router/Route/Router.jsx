@@ -4,6 +4,7 @@ import Admin from "../../Components/Banner/admin/Admin";
 import AllMovies from "../../Components/Banner/admin/Layout/AllMovies";
 
 import AllUsers from "../../Components/Banner/admin/Layout/AllUsers";
+import MovieUpdate from "../../Components/Banner/admin/Layout/MovieUpdate";
 import UploadMovies from "../../Components/Banner/admin/Layout/UploadMovies";
 import ClickedVideo from "../../Components/ClickedVideo/ClickedVideo";
 import Forget from "../../Components/Context/Authprovider/Authintication/Forget";
@@ -95,6 +96,11 @@ const router = createBrowserRouter([
             {
                 path: '/admin/uploadmovies',
                 element: <UploadMovies />
+
+            },
+            {
+                path: '/admin/updatemovie',
+                element:<MovieUpdate/>
 
             },
         ]
