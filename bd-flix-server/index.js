@@ -7,9 +7,69 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
+
+//firebase*************************************************
+
+const multer = require('multer');
+const upload = multer();
+const firebase = require('firebase-admin');
+const credentials = require('./bdflix-f2281-firebase-adminsdk-kif2f-1e3bc57c48.json');
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC6rov5IQ_uuDeY_DRnHhSADgnb3XoukL8",
+    authDomain: "bdflix-f2281.firebaseapp.com",
+    projectId: "bdflix-f2281",
+    storageBucket: "bdflix-f2281.appspot.com",
+    messagingSenderId: "259794146141",
+    appId: "1:259794146141:web:bab53915941d9a79830eb4"
+};
+
+firebase.initializeApp({
+    credential: firebase.credential.cert(credentials),
+    storageBucket: "gs://bdflix-f2281.appspot.com",
+});
+
+const db = firebase.firestore();
+// const person = db.collection("person");
+const bucket = firebase.storage()
+
+
+app.post('/upload-video', upload.single('video'), async (req, res) => {
+    // Get the video file from the request
+    const videoFile = req.file;
+
+    // Create a unique name for the video file
+    const videoName = `${Date.now()}_${videoFile.originalname}`;
+
+    // Create a reference to the video file in Firebase Storage
+    const videoRef = storage.ref().child(`videos/${videoName}`);
+
+    // Upload the video file to Firebase Storage
+    const snapshot = await videoRef.put(videoFile.buffer);
+
+    // Get the download URL of the video file
+    const downloadURL = await snapshot.ref.getDownloadURL();
+
+    // Connect to Firestore
+    const db = firebase.firestore();
+    // Add the download URL of the video in the firestore collection
+    db.collection('videos').add({downloadURL,name:videoName})
+        .then(() => {
+            // Send a response indicating that the video was successfully uploaded
+            res.send({ message: 'Video uploaded successfully' });
+        })
+        .catch(error => {
+            // Send an error response if there was a problem uploading the video
+            res.status(500).send({ error });
+        });
+});
+
+//firebase*************************************************
+
 app.get('/', (req, res) => {
     res.send('hello');
 })
+
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ac1kfa5.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
