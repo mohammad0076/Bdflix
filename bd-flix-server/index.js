@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -25,6 +25,15 @@ async function run() {
             const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
             res.send(result);
         })
+        app.get('/allsearch', async (req, res) => {
+           
+
+            const result = await allMoviesCollection.find({}).toArray();
+            res.send(result);
+
+           
+        })
+
 
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
