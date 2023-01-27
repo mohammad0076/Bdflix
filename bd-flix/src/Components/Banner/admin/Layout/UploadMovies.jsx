@@ -60,7 +60,9 @@ const handleSubmit = event =>{
       toast.success('Your Product is added successfully');
   })
 
-})
+}
+
+)
 
 
 }
@@ -73,7 +75,7 @@ const handleSubmit = event =>{
       <h1 className="text-5xl font-bold">Uploaded Your Movie</h1>
      
     </div>
-    <form onSubmit={handleSubmit}>
+    <form onClick={handleSubmit}>
     <div className="card mt-4 flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div className="card-body">
 

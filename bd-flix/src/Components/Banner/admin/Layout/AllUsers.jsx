@@ -29,8 +29,8 @@ const AllUsers = () => {
 
     <thead>
       <tr>
-        <th></th>
-        <th>Name</th>
+        <th>Serial</th>
+        <th>Image</th>
         <th>Email</th>
       </tr>
     </thead>
@@ -41,7 +41,11 @@ const AllUsers = () => {
     
     <tr key={user._id}>
     <th>{i+1}</th>
-    <td>{user.name}</td>
+
+    <td><div className="w-12">
+                <img className='rounded-full' src="https://placeimg.com/192/192/people" />
+              </div></td>
+
     <td>{user.email}</td>
 
   </tr>
