@@ -58,10 +58,7 @@ const router = createBrowserRouter([
 
             },
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
             {
                 path: '/movies',
                 element: <Movies></Movies>
@@ -79,11 +76,6 @@ const router = createBrowserRouter([
             },
 
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
 
         ]
     },
