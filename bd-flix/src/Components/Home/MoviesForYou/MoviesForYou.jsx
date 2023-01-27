@@ -96,8 +96,7 @@ const MoviesForYou = () => {
                         <div className="carousel-item">
                             {
                                 MoviesForYou.map((images, index) => (
-
-                                    <Link to={`/movies/${images.id}`}
+                                    <Link to={`/moviesforyou/${images.id}`}
                                         key={index}
                                         className={`carousel-item cursor-pointer ${index === currentIndex ? 'active' : ''}`}
                                         style={{
