@@ -9,7 +9,10 @@ const AllServices = () => {
     return (
         <div>
           <Daiyer/>
+       
           <Outlet/>
+      
+          
         </div>
     );
 };
