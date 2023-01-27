@@ -49,6 +49,14 @@ async function run() {
             res.send(result);
         })
 
+
+        app.get('/allmovies/search', async (req, res) => {
+            const searchfield = req.query.original_title
+            const result = allMoviesCollection.find({ original_title: { $regex: searchfield } })
+            res.send(result)
+
+        })
+
         app.get('/movies', async (req, res) => {
             const result = await allMoviesCollection.find({}).toArray();
             res.send(result);
@@ -74,19 +82,21 @@ async function run() {
             res.send(comedies);
         })
 
-<<<<<<< HEAD
+
 
         app.post('/uploadmovies', async (req, res) => {
             const add = req.body;
             const result = await adminuploadcollection.insertOne(add);
             res.send(result);
         });
+
+
         app.get('/uploadmovies', async (req, res) => {
             const add = req.body;
             const result = await adminuploadcollection.find(add).toArray();
             res.send(result);
         });
-=======
+
         //save user email and generate JWT token
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email
@@ -104,7 +114,7 @@ async function run() {
             console.log(token);
             res.send({ result, token })
         })
->>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
+
 
     }
     finally { }
