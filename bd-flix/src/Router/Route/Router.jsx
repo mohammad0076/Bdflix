@@ -13,7 +13,6 @@ import Signup from "../../Components/Context/Authprovider/Authintication/Signup"
 import HomePage from "../../Components/Home/IndexPage/HomePage";
 import Movies from "../../Components/Movies/Movies";
 import Premium from "../../Components/Premium/Premium";
-// import TvShows from "../../Components/TvShows/TvShows";
 import Main from "../../Main/Main";
 
 
@@ -27,10 +26,21 @@ const router = createBrowserRouter([
                 element: <HomePage></HomePage>
             },
             {
-
-                path: '/clickedvideo',
+                path: '/clickedvideo/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
-            }, {
+            },
+            {
+                path: '/moviesforyou/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                element: <ClickedVideo></ClickedVideo>
+            },
+            {
+                path: '/allmovie/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                element: <ClickedVideo></ClickedVideo>
+            },
+            {
                 path: '/login',
                 element: <Login></Login>
             },
@@ -48,7 +58,10 @@ const router = createBrowserRouter([
 
             },
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
             {
                 path: '/movies',
                 element: <Movies></Movies>
@@ -67,7 +80,10 @@ const router = createBrowserRouter([
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
 
         ]
     },

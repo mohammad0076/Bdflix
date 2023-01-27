@@ -4,6 +4,10 @@ const app = express();
 const cors = require('cors');
 const port = 5000;
 require('dotenv').config();
+
+//implement jwt token
+const jwt = require('jsonwebtoken')
+
 app.use(cors());
 app.use(express.json());
 
@@ -26,16 +30,18 @@ app.put("/user/:email", (req, res) => {
 
 async function run() {
     try {
-        const MostPopularMoviesCategoriCollection = client.db("bdFlix").collection("MostPopularMovie");
-        const MoviesForYouCategoriCollection = client.db("bdFlix").collection("MoviesForYou");
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
         const adminuploadcollection = client.db("bdFlix").collection("adminuploadsshows");
+
+        //user collection
+        const usersCollection = client.db("bdFlix").collection("user");
 
         app.get('/mostPopularMovies', async (req, res) => {
             const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
             res.send(result);
         })
+
 
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
@@ -43,8 +49,23 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/MoviesForYou', async (req, res) => {
-            const result = await MoviesForYouCategoriCollection.find({}).toArray();
+        app.get('/movies', async (req, res) => {
+            const result = await allMoviesCollection.find({}).toArray();
+            res.send(result);
+        })
+
+        // get movie by category
+        app.get('/allmovie/:category', async (req, res) => {
+            const allmovies = req.params.category;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.filter(getmovie => getmovie.category == allmovies);
+            res.send(result);
+        })
+
+        app.get('/movie/:id', async (req, res) => {
+            const allmovies = req.params.id;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.find(getmovie => getmovie.id == allmovies);
             res.send(result);
         })
 
@@ -53,6 +74,7 @@ async function run() {
             res.send(comedies);
         })
 
+<<<<<<< HEAD
 
         app.post('/uploadmovies', async (req, res) => {
             const add = req.body;
@@ -64,6 +86,25 @@ async function run() {
             const result = await adminuploadcollection.find(add).toArray();
             res.send(result);
         });
+=======
+        //save user email and generate JWT token
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email
+            const user = req.body
+            const filter = { email: email }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: user,
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            console.log(result)
+
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN,
+                { expiresIn: '1d' })
+            console.log(token);
+            res.send({ result, token })
+        })
+>>>>>>> 598a91fee7cc01eb7c9d91cb2adaaedf58933b6e
 
     }
     finally { }

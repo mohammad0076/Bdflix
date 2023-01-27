@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+import { setAuthToken } from '../../../../Token/AuthToken';
 
 const Signup = () => {
 
 
     useTitle('Signup')
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const [error, setError] = useState('')
 
 
@@ -27,32 +30,59 @@ const Signup = () => {
         const password = form.password.value;
 
 
-        createUser(email, password).then(result => {
-            const user = result.user;
-            console.log(user);
-            navigate('/')
-            setError('')
-            form.reset()
-            handleupdateprofile(name)
+        //for image upload
+        const image = event.target.image.files[0];
+        const formData = new FormData()
+        formData.append('image', image)
+        const url = "https://api.imgbb.com/1/upload?key=455300bd4645b3d5f212e2ce5e751d05"
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
         })
-            .catch(err => {
-                console.error(err)
-                setError(err.message)
-            })
+            .then(res => res.json())
+            .then(imageData => {
+                console.log(imageData.data.display_url)
+                createUser(email, password)
+                    .then(result => {
+                        setAuthToken(result.user)
+                        updateUserProfile(name, imageData.data.display_url)
+
+                            .then(() => {
+                                navigate(from, { replace: true })
+                            }).catch(error => console.log(error))
+
+                    }).catch(error => console.log(error))
+
+            }).catch(error => console.log(error))
+
+
+
+        // createUser(email, password).then(result => {
+        //     const user = result.user;
+        //     console.log(user);
+        //     navigate('/')
+        //     setError('')
+        //     form.reset()
+        //     // handleupdateprofile(name)
+        // })
+        //     .catch(err => {
+        //         console.error(err)
+        //         setError(err.message)
+        //     })
 
 
 
     }
 
-    const handleupdateprofile = (name, photoURL) => {
-        const profile = {
-            displayName: name,
-            photoURL: photoURL
-        }
-        updateUserProfile(profile).then(() => { }).catch(error => console.error(error))
+    // const handleupdateprofile = (name, photoURL) => {
+    //     const profile = {
+    //         displayName: name,
+    //         photoURL: photoURL
+    //     }
+    //     updateUserProfile(profile).then(() => { }).catch(error => console.error(error))
+    // }
 
-
-    }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content md:grid-cols-2 flex-col lg:flex-row-reverse">
@@ -70,6 +100,12 @@ const Signup = () => {
                         </div>
                         <div className="form-control">
                             <label className="label">
+                                <span className="label-text">Image</span>
+                            </label>
+                            <input name="image" type="file" id="image" accept="image/*" className="input input-bordered" />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
                             <input name="email" type="text" placeholder="email" className="input input-bordered" required />
@@ -79,7 +115,7 @@ const Signup = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input name="password" type="text" placeholder="password" className="input input-bordered" required />
+                            <input name="password" type="password" placeholder="password" className="input input-bordered" required />
 
                         </div>
                         <div className="form-control mt-6">
