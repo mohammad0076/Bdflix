@@ -1,14 +1,34 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
 
 
+
+
+
+
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
     const { user, logout } = useContext(AuthContext)
+    const [AllMoviesSearch, setData] = useState([]);
+    const [filterVal, setFilterVal] = useState('');
+    const [searchApiData, setSearchApiData] = useState([])
+
+
+
+    useEffect(() => {
+
+        fetch('http://localhost:5000/allsearch')
+            .then(res => res.json())
+            .then(res => {
+                setData(res)
+                setSearchApiData(res)
+
+            });
+    }, [])
     const handlelogout = () => {
         logout()
             .then(() => { }).catch(error => console.error(error))
@@ -19,7 +39,7 @@ const Navbar = () => {
         <li><Link to="/Premium" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link to="/tvshows" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link to="/movies" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
- 
+
     </>
 
     const bottomNav = <>
@@ -45,8 +65,20 @@ const Navbar = () => {
             <li>  </li>
         }
     </>
+    const handleFilter = (e) => {
+        if (e.target.value === '') {
+            setData(searchApiData)
+        }
+        else {
+            const FilterData = searchApiData.filter(item => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+            setData(FilterData)
+        }
+        setFilterVal(e.target.value)
+    }
     return (
+
         <>
+
             <div className="navbar bg-black">
 
                 <div className="navbar-start">
@@ -61,7 +93,10 @@ const Navbar = () => {
 
                     <div className='flex gap-2'>
                         <h1 className='btn rounded font-serif shadow-inner bg-green-700 text-xl font-bold text-white'>BD-FLIX</h1>
-                        <input type="text" placeholder="Search Movies" className="input lg:w-full h-10 rounded-3xl bg-[#3a3b3c] max-w-xs" />
+                        <input type='text' value={filterVal} onChange={(e) => handleFilter(e)} placeholder="Search Movies" className="input lg:w-full h-10 rounded-3xl bg-[#3a3b3c] max-w-xs" />
+                        
+
+
                     </div>
 
 
@@ -74,9 +109,9 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {user?.uid ?
                         <>
-                        <li><Link to="/admin" className="text-white font-bold mr-10 hover:text-green-400 focus:outline-none focus:shadow-outline">  Admin</Link></li>
+                            <li><Link to="/admin" className="text-white font-bold mr-10 hover:text-green-400 focus:outline-none focus:shadow-outline">  Admin</Link></li>
                             <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
-                            
+
 
                         </>
                         :
@@ -101,8 +136,20 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+            {
+                AllMoviesSearch.map(it => {
+                    return (
+
+                        <p key={it.id}>
+                            {it.title}
+                        </p>
+
+                    );
+                }
+                )
+            }
         </>
-    );
+    )
 };
 
 export default Navbar;

@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 const Allmovies = () => {
-    
+
     const [MostPopular, setMostPopular] = useState([]);
     const [MoviesForYou, setMoviesForYou] = useState([]);
     const [ComadyMovies, setComadyMovies] = useState([]);
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -37,6 +38,7 @@ const Allmovies = () => {
                 setLoading(false)
             });
     }, [])
+
 
     return [MostPopular, MoviesForYou, ComadyMovies, loading];
 };
