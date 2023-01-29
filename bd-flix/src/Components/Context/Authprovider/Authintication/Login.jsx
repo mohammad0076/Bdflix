@@ -5,6 +5,9 @@ import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+import { setAuthToken } from '../../../../Token/AuthToken';
+
+
 
 
 
@@ -14,6 +17,8 @@ const Login = () => {
     const [error, setError] = useState('')
 
     useTitle('Login')
+
+
 
 
 
@@ -33,7 +38,8 @@ const Login = () => {
         signIn(email, password).then(result => {
             const user = result.user;
 
-            // console.log(user)
+
+
             form.reset();
             setError('')
             navigate('/')
@@ -54,10 +60,11 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider()
 
     const handlegoogle = () => {
+
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+
 
                 navigate('/')
             })

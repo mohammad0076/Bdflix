@@ -4,7 +4,10 @@ import { FaHome, FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
 import logo from '../../images/brand.png'
+import { useEffect } from 'react';
 const Navbar = () => {
+
+
 
     const [active, setActive] = useState('home');
     const { user, logout } = useContext(AuthContext)
@@ -63,7 +66,7 @@ const Navbar = () => {
 
                     <div className='flex gap-2'>
                         <div className='btn rounded font-mono uppercase bg-none shadow-inner text-xl font-bold text-white'><img src={logo} alt=''></img>-FLIX</div>
-                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />
+                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />1
                     </div>
 
                 </div>
