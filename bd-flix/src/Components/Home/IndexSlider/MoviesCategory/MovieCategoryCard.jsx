@@ -75,7 +75,6 @@ const MovieCategoryCard = () => {
                         <FaAngleLeft />
                     </button>
 
-
                     <button
                         className={`lg:block hidden absolute top-44 bg-white rounded-full right-0 text-red-700 p-4 ${arrowButtonVisibility ? '' : 'hidden'}`}
                         onClick={handleNextSlide}

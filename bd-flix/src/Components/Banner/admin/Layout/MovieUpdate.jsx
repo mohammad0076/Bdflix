@@ -63,7 +63,7 @@ const navigate = useNavigate()
           console.log(updateMovie)
       
     
-          fetch(`http://localhost:5000/updateMovie/${updateId}`, {
+          fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/updateMovie/${updateId}`, {
             method: "PUT",
             headers:{
                 "content-type": "application/json"

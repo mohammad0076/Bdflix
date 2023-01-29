@@ -14,7 +14,7 @@ const MoviesForYou = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:5000/allmovie/MoviesForYou')
+        fetch('https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/allmovie/MoviesForYou')
             .then(res => res.json())
             .then(res => {
                 setMoviesForYou(res)
