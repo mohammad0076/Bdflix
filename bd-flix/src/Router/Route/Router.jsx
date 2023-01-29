@@ -4,6 +4,7 @@ import Admin from "../../Components/Banner/admin/Admin";
 import AllMovies from "../../Components/Banner/admin/Layout/AllMovies";
 
 import AllUsers from "../../Components/Banner/admin/Layout/AllUsers";
+import MovieUpdate from "../../Components/Banner/admin/Layout/MovieUpdate";
 import UploadMovies from "../../Components/Banner/admin/Layout/UploadMovies";
 import ClickedVideo from "../../Components/ClickedVideo/ClickedVideo";
 import Forget from "../../Components/Context/Authprovider/Authintication/Forget";
@@ -13,6 +14,7 @@ import Signup from "../../Components/Context/Authprovider/Authintication/Signup"
 import HomePage from "../../Components/Home/IndexPage/HomePage";
 import Movies from "../../Components/Movies/Movies";
 import Premium from "../../Components/Premium/Premium";
+import TvShows from "../../Components/Tvshows/Tvshows";
 import Main from "../../Main/Main";
 
 
@@ -27,17 +29,17 @@ const router = createBrowserRouter([
             },
             {
                 path: '/clickedvideo/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
                 path: '/moviesforyou/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
                 path: '/allmovie/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
@@ -64,11 +66,11 @@ const router = createBrowserRouter([
                 element: <Movies></Movies>
 
             },
-            // {
-            //     path: '/tvshows',
-            //     element: <TvShow></TvShows>
+            {
+                path: '/tvshows',
+                element: <TvShows></TvShows>
 
-            // },
+            },
             {
                 path: '/premium',
                 element: <Premium></Premium>
@@ -96,6 +98,11 @@ const router = createBrowserRouter([
             {
                 path: '/admin/uploadmovies',
                 element: <UploadMovies />
+
+            },
+            {
+                path: '/admin/updatemovie',
+                element:<MovieUpdate/>
 
             },
         ]

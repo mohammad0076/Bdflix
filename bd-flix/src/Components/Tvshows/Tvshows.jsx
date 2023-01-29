@@ -5,6 +5,7 @@ const TvShows = () => {
     return (
         <div>
             <SeriesIndex></SeriesIndex>
+            {/* <AllmoviesCard></AllmoviesCard> */}
         </div>
     );
 };

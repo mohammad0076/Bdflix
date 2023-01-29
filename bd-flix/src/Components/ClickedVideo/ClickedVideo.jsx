@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { BiShareAlt } from 'react-icons/bi';
 import { FiDownload } from 'react-icons/fi';
 import { MdPlaylistAdd } from 'react-icons/md';
 import { AiFillPlayCircle } from 'react-icons/ai';
-
 import Recommended from '../Recommended/Recommended';
 import MoreFromThisCategory from '../MoreFromThisCategory/MoreFromThisCategory';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
@@ -17,7 +16,7 @@ const ClickedVideo = () => {
     const data = useLoaderData();
 
     const { user } = useContext(AuthContext);
-    console.log(user.email)
+    console.log(user?.email)
 
     const PopularMovies = [
 
@@ -69,28 +68,40 @@ const ClickedVideo = () => {
         setIsDisLike(!isDisLike);
         setDisLike(dislike + (isDisLike ? -1 : 1));
     }
-
-
-
-
+    const [play, setPlay] = useState(false);
     //End of Like and Dislike-------------------------------------->
+    //Download-------------------------------------->
 
+    const videoRef = useRef(null);
+
+    const handleDownload = () => {
+        const videoSrc = videoRef.current.src;
+        const a = document.createElement("a");
+        a.href = videoSrc;
+        a.download = data?.video;
+        a.click();
+    };
+    //End of Download-------------------------------------->
     return (
         <div className='mx-2 md:mx-4'>
             <div className='lg:grid grid-cols-3 gap-1'>
                 <div className='col-span-2'>
 
-                    <div className='relative mt-8'>
-                        <img className='h-full w-full' src={data.backdrop_path} alt='poster'></img>
-                        <AiFillPlayCircle className='text-4xl md:text-6xl text-red-600 absolute top-2/4 left-2/4'></AiFillPlayCircle>
+                    <div className='relative h-[500px] mt-8'>
+
+                        {!play ? <img className='h-full bg-cover w-full' src={data.poster_path} alt='poster'></img> :
+                            <video ref={videoRef} className='h-full w-full' controls={play} autoPlay src={data?.video}></video>}
+                        <button onClick={() => setPlay(!play)}>{play ? '' :
+                            <AiFillPlayCircle className='text-4xl md:text-6xl text-green-700 absolute top-2/4 left-2/4'></AiFillPlayCircle>}</button>
+
                     </div>
                     <div className=''>
 
-                        <div className='my-5 flex justify-between gap-5'>
+                        <div className='my-5 flex justify-between'>
 
                             <p className='text-2xl font-bold mt-2'>{data.release_date}</p>
-                            <div className='flex justify-center items-center gap-8 font-bold'>
-                                <div className='flex justify-center items-center gap-2'>
+                            <div className='flex justify-center items-center gap-16 font-bold'>
+                                <div className='flex justify-center items-center gap-10'>
 
                                     <div className={"" + (isLike ? "text-blue-500" : "")}>
                                         <FaThumbsUp onClick={onLikeButtonClick}
@@ -112,17 +123,17 @@ const ClickedVideo = () => {
                                         <BiShareAlt className='text-xl mx-auto'></BiShareAlt>
                                         <p className='text-xs'>Share</p>
                                     </div>
-                                    <div>
+                                    <button onClick={handleDownload} className='cursor-pointer'>
                                         <FiDownload className='text-xl mx-auto'></FiDownload>
                                         <p className='text-xs'>Download</p>
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
 
                         <div className='bg-slate-900 my-5 p-5 rounded'>
-                            <p className='font-bold'>{data.title}</p>
+                            <p className='font-bold'>{data.title ? data.title : data.original_title}</p>
                             <p className='text-xl my-2'>Description</p>
                             <p className='text-xs text-'>{data.overview}</p>
                         </div>
