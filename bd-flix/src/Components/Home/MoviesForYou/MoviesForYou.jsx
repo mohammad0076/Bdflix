@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { AiOutlineArrowRight } from "react-icons/ai"
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import './MovieForyou.css';
 
 const MoviesForYou = () => {
-<<<<<<< HEAD
-    return (
-        <div>
-            <h1>aa</h1>
-=======
 
     const navigate = useNavigate();
 
@@ -142,7 +142,6 @@ const MoviesForYou = () => {
 
 
             </>
->>>>>>> a0de3d9c94e654ae8b29b2cc8eaa90dc7ab464d5
         </div>
     );
 };

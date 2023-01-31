@@ -3,11 +3,6 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const UploadMovies = () => {
-<<<<<<< HEAD
-    return (
-        <div>
-            <h1>upload movies</h1>
-=======
   const [loading, setLoading] = useState(false);
   function getRandomInt() {
     let min = Math.ceil(1);
@@ -154,7 +149,6 @@ const UploadMovies = () => {
                 </div>
             </div>
           </form>
->>>>>>> a0de3d9c94e654ae8b29b2cc8eaa90dc7ab464d5
         </div>
       </div>
     </div>

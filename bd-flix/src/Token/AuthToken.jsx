@@ -1,11 +1,10 @@
 export const setAuthToken = user => {
     const currentUser = {
-<<<<<<< HEAD
+
         email: user.email,
 
-=======
+
         email: user?.email,
->>>>>>> a0de3d9c94e654ae8b29b2cc8eaa90dc7ab464d5
     }
 
     //save user in db & get token

@@ -13,6 +13,16 @@
   }
 }
 
+.App {
+  background-color: #fff;
+  color: #000;
+}
+
+.App.dark {
+  background-color: #000;
+  color: #fff;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -32,6 +42,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

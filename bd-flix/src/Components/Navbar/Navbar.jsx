@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaVideo } from 'react-icons/fa';
+import { FaHome, FaVideo, MdDarkMode, FaToggleOn, FaToggleOff } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
 import logo from '../../images/brand.png'
@@ -10,7 +10,8 @@ const Navbar = () => {
 
 
     const [active, setActive] = useState('home');
-    const { user, logout } = useContext(AuthContext)
+    const { user, logout, mode, Togglebutton } = useContext(AuthContext)
+
     const handlelogout = () => {
         logout()
             .then(() => { }).catch(error => console.error(error))
@@ -23,6 +24,8 @@ const Navbar = () => {
         <li><Link to='/premium' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link to='/tvshows' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
+        <button className={`text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline`} onClick={Togglebutton}>{mode === "light" ? <FaToggleOn></FaToggleOn> : <FaToggleOff></FaToggleOff>}</button>
+
 
 
     </>
@@ -66,12 +69,12 @@ const Navbar = () => {
 
                     <div className='flex gap-2'>
                         <div className='btn rounded font-mono uppercase bg-none shadow-inner text-xl font-bold text-white'><img src={logo} alt=''></img>-FLIX</div>
-                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />1
+                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />
                     </div>
 
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal flex justify-between w-96 px-1">
+                    <ul className="menu menu-horizontal flex justify-between w-100 px-1">
                         {nav}
                     </ul>
                 </div>

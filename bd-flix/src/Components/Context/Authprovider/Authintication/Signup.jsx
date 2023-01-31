@@ -5,6 +5,8 @@ import { AuthContext } from '../Authprovider';
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
 import { setAuthToken } from '../../../../Token/AuthToken';
+import { success } from 'daisyui/src/colors';
+
 
 const Signup = () => {
 
@@ -44,8 +46,19 @@ const Signup = () => {
             .then(imageData => {
                 console.log(imageData.data.display_url)
                 createUser(email, password)
+
+
+
+
                     .then(result => {
                         setAuthToken(result.user)
+                        toast.success('User Created Successfully')
+
+
+                        navigate('/')
+
+
+
                         updateUserProfile(name, imageData.data.display_url)
 
                             .then(() => {

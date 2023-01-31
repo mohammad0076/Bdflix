@@ -59,9 +59,16 @@ const AuthProvider = ({ children }) => {
 
         }
     })
+
+
+    const [mode, setMode] = useState("light")
+    const Togglebutton = () => {
+        setMode(mode === "light" ? "dark" : "light")
+
+    }
     const authInfo = {
         user,
-        loading, createUser, signIn, providerLogin, logout, updateUserProfile, Resetpass
+        loading, createUser, signIn, providerLogin, logout, updateUserProfile, Resetpass, mode, Togglebutton
 
     }
 
