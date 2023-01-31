@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaVideo } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
 
-
-
-
-
-
+import logo from '../../images/brand.png'
 const Navbar = () => {
 
     const [active, setActive] = useState('home');
@@ -16,6 +12,7 @@ const Navbar = () => {
     const [AllMoviesSearch, setData] = useState([]);
     const [filterVal, setFilterVal] = useState('');
     const [searchApiData, setSearchApiData] = useState([])
+    const inputRef = useRef(null);
 
 
 
@@ -62,18 +59,23 @@ const Navbar = () => {
             <FaEnvelope />
         </Link>
         {
+
+
             <li>  </li>
         }
     </>
     const handleFilter = (e) => {
-        if (e.target.value === '') {
+        if (e.target.value === ' ') {
             setData(searchApiData)
         }
         else {
-            const FilterData = searchApiData.filter(item => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
-            setData(FilterData)
+            const filterData = searchApiData.filter(item => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+            setData(filterData)
         }
         setFilterVal(e.target.value)
+    }
+    function handleClick() {
+        inputRef.current.click();
     }
     return (
 
@@ -92,12 +94,13 @@ const Navbar = () => {
                     </div> */}
 
                     <div className='flex gap-2'>
-                        <h1 className='btn rounded font-serif shadow-inner bg-green-700 text-xl font-bold text-white'>BD-FLIX</h1>
-                        <input type='text' value={filterVal} onChange={(e) => handleFilter(e)} placeholder="Search Movies" className="input lg:w-full h-10 rounded-3xl bg-[#3a3b3c] max-w-xs" />
-                        
+                        <div className='btn rounded font-mono uppercase bg-none shadow-inner text-xl font-bold text-white'><img src={logo} alt=''></img>-FLIX</div>
+                        {/* <label ref={inputRef}  htmlFor="my-modal-3" className=""></label> */}
 
-
+                        <input type="text" placeholder='search' value={filterVal} onChange={(e) => handleFilter(e)} className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />
                     </div>
+
+
 
 
                 </div>
@@ -137,17 +140,19 @@ const Navbar = () => {
                 </div>
             </div>
             {
-                AllMoviesSearch.map(it => {
+                AllMoviesSearch?.slice(0, 1).map(it => {
                     return (
 
                         <p key={it.id}>
                             {it.title}
+                            
                         </p>
 
                     );
                 }
                 )
             }
+
         </>
     )
 };

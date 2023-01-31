@@ -3,21 +3,27 @@ import { useState } from 'react';
 
 const Allmovies = () => {
 
+
     const [MostPopular, setMostPopular] = useState([]);
     const [MoviesForYou, setMoviesForYou] = useState([]);
     const [ComadyMovies, setComadyMovies] = useState([]);
+
+
+    
+    const [allMovies, setallMovies] = useState([]);
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:5000/mostPopularMovies')
+        fetch('http://localhost:5000/movies')
             .then(res => res.json())
             .then(res => {
-                setMostPopular(res)
+                setallMovies(res)
                 setLoading(false)
             });
     }, [])
+
 
     useEffect(() => {
         setLoading(true);
@@ -41,6 +47,9 @@ const Allmovies = () => {
 
 
     return [MostPopular, MoviesForYou, ComadyMovies, loading];
+
+    return [allMovies, loading];
+
 };
 
 export default Allmovies;
