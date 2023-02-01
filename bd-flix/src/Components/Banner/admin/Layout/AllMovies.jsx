@@ -24,8 +24,8 @@ const AllMovies = () => {
 
 
 
-    const updateButton = (id) => {
-        navigate('/admin/updatemovie', { state: { id } })
+    const updateButton = (singleMovie) => {
+        navigate('/admin/updatemovie', { state: { singleMovie } })
     }
 
 
@@ -63,7 +63,7 @@ const AllMovies = () => {
 
                         <div className='flex justify-between mt-3'>
                             <button onClick={() => handleDelete(singleMovie._id)} className='bg-emerald-600 mb-6 text-center hover:bg-teal-500 px-5 py-2 rounded-full font-bold'>Delete</button>
-                            <button onClick={() => updateButton(singleMovie._id)} className='bg-emerald-600 mb-6 text-center hover:bg-teal-500 px-5 py-2 rounded-full font-bold'>Update </button>
+                            <button onClick={() => updateButton(singleMovie)} className='bg-emerald-600 mb-6 text-center hover:bg-teal-500 px-5 py-2 rounded-full font-bold'>Update </button>
 
                         </div>
 
