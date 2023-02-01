@@ -18,7 +18,13 @@ const AuthProvider = ({ children }) => {
 
 
     }
-
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            setuser(currentUser);
+            console.log(currentUser)
+        });
+        return () => unsubscribe();
+    }, [])
     const providerLogin = (provider) => {
         setloading(true)
         return signInWithPopup(auth, provider);
@@ -30,6 +36,9 @@ const AuthProvider = ({ children }) => {
         });
 
     }
+
+
+
     const logout = () => {
         setloading(true)
         return signOut(auth);

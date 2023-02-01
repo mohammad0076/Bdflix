@@ -16,6 +16,7 @@ import Movies from "../../Components/Movies/Movies";
 import Premium from "../../Components/Premium/Premium";
 import TvShows from "../../Components/Tvshows/Tvshows";
 import Main from "../../Main/Main";
+import Private from "../Private";
 
 
 const router = createBrowserRouter([
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/premium',
-                element: <Premium></Premium>
+                element: <Private><Premium></Premium></Private>
 
             },
 
@@ -102,7 +103,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/admin/updatemovie',
-                element:<MovieUpdate/>
+                element: <MovieUpdate />
 
             },
         ]

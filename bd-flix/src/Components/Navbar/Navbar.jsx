@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { FaHome, FaVideo, MdDarkMode, FaToggleOn, FaToggleOff } from 'react-icons/fa';
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
@@ -14,7 +14,10 @@ const Navbar = () => {
 
     const handlelogout = () => {
         logout()
-            .then(() => { }).catch(error => console.error(error))
+            .then(() => {
+
+                Navigate('/')
+            }).catch(error => console.error(error))
     }
 
     const nav = <>
@@ -55,7 +58,7 @@ const Navbar = () => {
     </>
     return (
         <>
-            <div className="navbar bg-black">
+            <div className={`navbar bg-black`}>
 
                 <div className="navbar-start">
                     {/* <div className="dropdown">
@@ -83,7 +86,11 @@ const Navbar = () => {
                         <>
                             <li><Link to="/admin" className="text-white font-bold mr-10 hover:text-green-400 focus:outline-none focus:shadow-outline">  Admin</Link></li>
                             <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
-
+                            <div className="avatar ml-2">
+                                <div className="w-12 rounded-full">
+                                    <img src={user.photoURL} />
+                                </div>
+                            </div>
 
                         </>
                         :

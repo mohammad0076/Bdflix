@@ -69,7 +69,21 @@ const Signup = () => {
 
             }).catch(error => console.log(error))
 
+        // const saveUser = (name, email) => {
+        //     const user = { name, email };
+        //     fetch('http://localhost:5000/allUsers', {
+        //         method: "POST",
+        //         headers: {
+        //             'content-type': 'application/json',
 
+        //         },
+        //         body: JSON.stringify(user)
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log(data)
+        //         })
+        // }
 
         // createUser(email, password).then(result => {
         //     const user = result.user;

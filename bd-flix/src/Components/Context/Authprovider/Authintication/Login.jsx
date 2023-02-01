@@ -42,7 +42,7 @@ const Login = () => {
 
             form.reset();
             setError('')
-            navigate('/')
+            navigate(form, { replace: true })
         }).catch(error => {
             console.log(error)
             setError(error.message)
