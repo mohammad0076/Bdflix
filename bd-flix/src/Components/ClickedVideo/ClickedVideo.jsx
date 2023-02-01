@@ -7,16 +7,20 @@ import { AiFillPlayCircle } from 'react-icons/ai';
 import Recommended from '../Recommended/Recommended';
 import MoreFromThisCategory from '../MoreFromThisCategory/MoreFromThisCategory';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
-import { useContext } from 'react';
-import { AuthContext } from '../Context/Authprovider/Authprovider';
+import { useEffect } from 'react';
 
 
 
 const ClickedVideo = () => {
     const data = useLoaderData();
+    const [recomended, setRecomended] = useState([]);
+    const [video, setVideo] = useState(data?.video);
+    useEffect(() => {
+        fetch(`http://localhost:5000/recommend/${data.original_title}`)
+            .then(res => res.json())
+            .then(result => setRecomended(result))
+    }, [])
 
-    const { user } = useContext(AuthContext);
-    console.log(user?.email)
 
     const PopularMovies = [
 
@@ -87,10 +91,16 @@ const ClickedVideo = () => {
             <div className='lg:grid grid-cols-3 gap-1'>
                 <div className='col-span-2'>
 
-                    <div className='relative h-[500px] mt-8'>
+                    <div className='relative h-[500px] my-8'>
 
-                        {!play ? <img className='h-full bg-cover w-full' src={data.poster_path} alt='poster'></img> :
-                            <video ref={videoRef} className='h-full w-full' controls={play} autoPlay src={data?.video}></video>}
+                        {!play ?
+                            <div className='relative'>
+                                <img className='object-cover w-full h-[500px]' src={data.poster_path} alt='poster'></img>
+                                <div className='absolute lg:inset-0 lg:bg-black lg:opacity-50'></div>
+
+                            </div> :
+                            <video ref={videoRef} className='h-full w-full' controls={play} autoPlay src={video}>
+                            </video>}
                         <button onClick={() => setPlay(!play)}>{play ? '' :
                             <AiFillPlayCircle className='text-4xl md:text-6xl text-green-700 absolute top-2/4 left-2/4'></AiFillPlayCircle>}</button>
 
@@ -142,19 +152,24 @@ const ClickedVideo = () => {
 
 
                 </div>
-
+                {/* Recomendation------------------------------------------------------------------------ */}
                 <div className='mx-auto my-5'>
                     <p className='text-xl font-bold mb-3 text-center'>Recommended</p>
                     <div className='mx-auto'>
                         <div className="grid lg:grid-cols-2 grid-cols-3 gap-5">
                             {
-                                PopularMovies?.slice(0, 6).map(movies =>
-                                    <Recommended movies={movies}></Recommended>
+                                recomended?.slice(0, 6).map(movies =>
+                                    <Recommended
+                                    video={video}
+                                    setVideo={setVideo}
+                                    movies={movies}></Recommended>
                                 )
                             }
                         </div>
                     </div>
                 </div>
+
+                {/* Recomendation------------------------------------------------------------------------ */}
             </div>
             <div className='my-5'>
                 <p className='text-xl font-bold mb-3 text-center'>More from this category</p>

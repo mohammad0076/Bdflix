@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { app } from '../../Firebase/firebase.config';
 
 
@@ -18,6 +18,10 @@ const AuthProvider = ({ children }) => {
 
 
     }
+
+
+
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setuser(currentUser);
@@ -29,15 +33,15 @@ const AuthProvider = ({ children }) => {
         setloading(true)
         return signInWithPopup(auth, provider);
     }
-    const updateUserProfile = (name, photo) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: photo
-        });
 
+
+    const updateUserProfile = (profile) => {
+        return updateProfile(auth.currentUser, profile);
     }
 
-
+    const verifyEmail = () => {
+        return sendEmailVerification(auth.currentUser);
+    }
 
     const logout = () => {
         setloading(true)
@@ -77,7 +81,7 @@ const AuthProvider = ({ children }) => {
     }
     const authInfo = {
         user,
-        loading, createUser, signIn, providerLogin, logout, updateUserProfile, Resetpass, mode, Togglebutton
+        loading, createUser, signIn, providerLogin, logout, updateUserProfile, Resetpass, mode, Togglebutton, verifyEmail
 
     }
 

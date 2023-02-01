@@ -15,6 +15,7 @@ import { setAuthToken } from '../../../../Token/AuthToken';
 
 const Login = () => {
     const [error, setError] = useState('')
+    const [loading, setloading] = useState(false)
 
     useTitle('Login')
 

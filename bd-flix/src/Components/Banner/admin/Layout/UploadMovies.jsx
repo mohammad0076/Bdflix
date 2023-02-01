@@ -24,12 +24,12 @@ const UploadMovies = () => {
 
 
     const formData = new FormData()
-    formData.append('image', poster_path)
+    formData.append('imageFile', poster_path)
 
     const formvideo = new FormData();
     formvideo.append('filename', video);
     setLoading(true)
-    const url = "https://api.imgbb.com/1/upload?key=455300bd4645b3d5f212e2ce5e751d05"
+    const url = "http://localhost:5000/uploadPhoto"
 
 
     // video upload firebase-------------------------
@@ -49,7 +49,7 @@ const UploadMovies = () => {
 
             const addMovie = {
               id: getRandomInt(),
-              poster_path: ImageData.data.url,
+              poster_path: ImageData.url,
               category: movieWithoutSpaces,
               video: result.url,
               original_title,
@@ -144,9 +144,9 @@ const UploadMovies = () => {
                   </select>
                 </div>
               </div>
-                <div className="form-control mt-6">
-                  <button className=" font-bold p-3 rounded-lg bg-green-700">{loading ? "Loading..." : "Upload"}</button>
-                </div>
+              <div className="form-control mt-6">
+                <button className=" font-bold p-3 rounded-lg bg-green-700">{loading ? "Loading..." : "Upload"}</button>
+              </div>
             </div>
           </form>
         </div>

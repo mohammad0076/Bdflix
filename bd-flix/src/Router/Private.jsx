@@ -15,6 +15,8 @@ const Private = ({ children }) => {
             Processing...
         </button>
     }
+
+
     if (!user) {
         return <Navigate to="/login" state={{ from: location }} replace></Navigate>
     }

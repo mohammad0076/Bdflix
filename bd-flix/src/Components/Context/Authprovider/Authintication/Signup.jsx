@@ -10,6 +10,7 @@ import { success } from 'daisyui/src/colors';
 
 const Signup = () => {
 
+    const [loading, setloading] = useState(false)
 
     useTitle('Signup')
     const navigate = useNavigate();
@@ -18,9 +19,6 @@ const Signup = () => {
     const [error, setError] = useState('')
 
 
-    if (error === 'Firebase: Error (auth/email-already-in-use).') {
-        toast.error('Already have an account')
-    }
 
 
     const { createUser, updateUserProfile } = useContext(AuthContext)
@@ -35,8 +33,10 @@ const Signup = () => {
         //for image upload
         const image = event.target.image.files[0];
         const formData = new FormData()
-        formData.append('image', image)
-        const url = "https://api.imgbb.com/1/upload?key=455300bd4645b3d5f212e2ce5e751d05"
+        formData.append('imageFile', image)
+        setloading(true)
+
+        const url = "http://localhost:5000/uploadPhoto"
 
         fetch(url, {
             method: 'POST',
@@ -44,15 +44,19 @@ const Signup = () => {
         })
             .then(res => res.json())
             .then(imageData => {
-                console.log(imageData.data.display_url)
+                console.log(imageData.url)
                 createUser(email, password)
 
 
 
 
                     .then(result => {
+
                         setAuthToken(result.user)
+
+
                         toast.success('User Created Successfully')
+                        setloading(false)
 
 
                         navigate('/')
@@ -85,22 +89,29 @@ const Signup = () => {
         //         })
         // }
 
-        // createUser(email, password).then(result => {
-        //     const user = result.user;
-        //     console.log(user);
-        //     navigate('/')
-        //     setError('')
-        //     form.reset()
-        //     // handleupdateprofile(name)
-        // })
-        //     .catch(err => {
-        //         console.error(err)
-        //         setError(err.message)
-        //     })
+        createUser(email, password).then(result => {
+            const user = result.user;
+            console.log(user);
+            navigate('/')
+            setError('')
+            form.reset()
+            // handleupdateprofile(name)
+        })
+            .catch(err => {
+                console.error(err)
+                setError(err.message)
+
+                if (error === 'Firebase: Error (auth/email-already-in-use).') {
+                    toast.error('Already have an account')
+                    setloading(false)
+
+                }
+            })
 
 
 
     }
+
 
     // const handleupdateprofile = (name, photoURL) => {
     //     const profile = {
@@ -109,6 +120,9 @@ const Signup = () => {
     //     }
     //     updateUserProfile(profile).then(() => { }).catch(error => console.error(error))
     // }
+
+
+
 
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -147,7 +161,7 @@ const Signup = () => {
                         </div>
                         <div className="form-control mt-6">
                             {/* text-green-700 hover:text-green-400 lg:text-3xl focus:outline-none  */}
-                            <input type="submit" className="btn btn-primary text-green-700 hover:text-green-400 lg:text-2xl  focus:outline-none " value="Sign Up" />
+                            <input type="submit" className="btn btn-primary text-green-700 hover:text-green-400 lg:text-2xl  focus:outline-none " value={loading ? "loading..." : 'Signup'} />
 
                         </div>
 
