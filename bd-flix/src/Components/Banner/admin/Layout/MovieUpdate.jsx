@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const MovieUpdate = (id) => {
-
+const MovieUpdate = (singleMovie) => {
+  const [loading, setLoading] = useState(false);
   const { state } = useLocation();
 
-  const updateId = state.id
+  const updateData = state.singleMovie
+
 
 
   const navigate = useNavigate()
@@ -20,9 +21,9 @@ const MovieUpdate = (id) => {
 
 
 
-    const image = event.target.image.files[0]
+    const image = event.target.poster_path.files[0]
 
-    console.log(image)
+
     const catagories = event.target.productCatagories.value
     const overview = event.target.overview.value
     const poster_path = event.target.poster_path.value
@@ -30,7 +31,7 @@ const MovieUpdate = (id) => {
     // const video = event.target.video.value
     const original_title = event.target.original_title.value
 
-    console.log(original_title)
+ 
 
     let catagoriesWithOutSpace = catagories
     let movieWithoutSpaces = catagoriesWithOutSpace.replace(/ /g, "");
@@ -50,6 +51,8 @@ const MovieUpdate = (id) => {
       .then(ImageData => {
 
 
+console.log(ImageData)
+
         const updateMovie = {
           image: ImageData.data.url,
           category: movieWithoutSpaces,
@@ -63,7 +66,7 @@ const MovieUpdate = (id) => {
         console.log(updateMovie)
 
 
-        fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/updateMovie/${updateId}`, {
+        fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/updateMovie/${updateMovie}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json"
@@ -98,7 +101,7 @@ const MovieUpdate = (id) => {
 
   return (
 
-    <div className='bg-[#3a3b3c]  w-full  rounded-lg text-center'>
+    <div className='bg-slate-900 w-full  rounded-lg text-center'>
       <div className="hero my-4 ">
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-left">
@@ -106,67 +109,74 @@ const MovieUpdate = (id) => {
 
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="card mt-4 flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <div className="card-body">
-
-
-
-
+            <div className="card mt-4 w-full">
+              <div className="card-body grid lg:grid-cols-2 grid-cols-1">
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Movie Title</span>
+                    <span className="label-text font-bold text-xl">Title: {updateData.original_title}</span>
                   </label>
-                  <input type="text" name='original_title' placeholder="Movie Title" className="input input-bordered" />
+                  <input type="text" required name='original_title' placeholder="Change Title Type Here" className="input bg-transparent rounded-md input-bordered" />
                 </div>
 
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Overview</span>
+                    <span className="label-text font-bold text-xl">Overview: {updateData.overview.slice(0, 30) + "..."}</span>
                   </label>
-                  <input type="text" name='overview' placeholder="Overview" className="input input-bordered" />
+                  <input type="text" required name='overview' placeholder=" Change overview type here" className="input bg-transparent rounded-md input-bordered" />
                 </div>
 
 
                 <div className="form-control">
+                <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-xl font-bold">Banner</span>
+                </label>
+                <img className='w-[200px] h-[200px]' src={updateData.poster_path} alt=" Banner"/>
+  
+                {/* <input type="file" name='video' required placeholder="Image Upload" className="input input-bordered" /> */}
+              </div>
                   <label className="label">
                     <span className="label-text">Image Upload</span>
                   </label>
-                  <input type="file" name='poster_path' accept='image/*' placeholder="Image Upload" className="input input-bordered" />
+                  <div className="flex">
+                    <input type="file" required name="poster_path" accept='image/*' id="files" className="px-8 py-12 border-2 border-dashed rounded-md dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" />
+                  </div>
+                  {/* <input type="file" required name='poster_path' accept='image/*' placeholder="Image Upload" className="input input-bordered" /> */}
                 </div>
-
-
-
-
                 {/* this is video upload  */}
-
 
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Video Upload</span>
                   </label>
-                  <input type="file" name='image' accept='image/*' placeholder="Image Upload" className="input input-bordered" />
+               { /*  <div className="flex">
+                    <input type="file" required name="video" id="files" className="px-8 py-12 border-2 border-dashed rounded-md dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" />
+                  </div>*/}
+                  {/* <input type="file" name='video' required placeholder="Image Upload" className="input input-bordered" /> */}
                 </div>
-
-
-
-
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Catagories </span>
+                    <span className="label-text">Catagories: {updateData.category} </span>
                   </label>
-                  <select name='productCatagories' className="input input-bordered" >
-                    <option>Most Popular Movie</option>
-                    <option>Movies For You</option>
-                    <option>Recent Episode</option>
+                  <select name='productCatagories' className="input rounded-md bg-transparent input-bordered" >
+                    <option className='bg-slate-900'>Most Popular Movie</option>
+
+
+
+                   <option className='bg-slate-900'>Movies For You</option>
+                    <option className='bg-slate-900'>Post Popular Movie</option>
+
+
+                    
                   </select>
                 </div>
-                <div className="form-control mt-6">
-                  <button type="submit" className=" font-bold p-3 rounded-lg btn-primary">Click to Update</button>
-                </div>
               </div>
+                <div className="form-control mt-6">
+                  <button className=" font-bold p-3 rounded-lg bg-green-700">{loading ? "Loading..." : "Update"}</button>
+                </div>
             </div>
           </form>
         </div>

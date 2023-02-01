@@ -86,6 +86,17 @@ const router = createBrowserRouter([
         path: '/admin',
         element: <Admin />,
         children: [
+
+            {
+                path: '/admin',
+                element: <AllMovies />
+
+            },
+            {
+                path: '/admin/allmovies',
+                element: <AllMovies />
+
+            },
             {
                 path: '/admin/allmovies',
                 element: <AllMovies />
