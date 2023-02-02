@@ -22,7 +22,7 @@ const ClickedVideo = () => {
             .then(result => setRecomended(result))
     }, [])
 
-    
+
 
     const PopularMovies = [
 
@@ -60,8 +60,6 @@ const ClickedVideo = () => {
     const [like, setLike] = useState(0);
     const [isLike, setIsLike] = useState(false);
 
-    const [dislike, setDisLike] = useState(0);
-    const [isDisLike, setIsDisLike] = useState(false);
 
     const onLikeButtonClick = () => {
 
@@ -143,7 +141,7 @@ const ClickedVideo = () => {
                             <p className='text-xs text-'>{data.overview}</p>
                         </div>
                         <div>
-                            <ClickedVideoReview/>
+                            <ClickedVideoReview data={data} />
                         </div>
                     </div>
 

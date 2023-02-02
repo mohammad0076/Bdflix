@@ -84,6 +84,8 @@ async function run() {
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
         const allUsers = client.db("bdFlix").collection("user");
+        //Reviw collection
+        const reviewCollection = client.db("bdFlix").collection("review");
         //user collection
         const usersCollection = client.db("bdFlix").collection("user");
 
@@ -307,6 +309,12 @@ async function run() {
             console.log(token);
             res.send({ result, token })
         })
+        //reviews collection of users
+        app.post('/review', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
 
     }
 
