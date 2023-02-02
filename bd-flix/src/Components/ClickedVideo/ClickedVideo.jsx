@@ -8,6 +8,7 @@ import Recommended from '../Recommended/Recommended';
 import MoreFromThisCategory from '../MoreFromThisCategory/MoreFromThisCategory';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { useEffect } from 'react';
+import ClickedVideoReview from './ClickedVideoReview';
 
 
 
@@ -21,6 +22,7 @@ const ClickedVideo = () => {
             .then(result => setRecomended(result))
     }, [])
 
+    
 
     const PopularMovies = [
 
@@ -68,10 +70,7 @@ const ClickedVideo = () => {
 
     }
 
-    const onDisLikeButtonClick = () => {
-        setIsDisLike(!isDisLike);
-        setDisLike(dislike + (isDisLike ? -1 : 1));
-    }
+
     const [play, setPlay] = useState(false);
     //End of Like and Dislike-------------------------------------->
     //Download-------------------------------------->
@@ -119,11 +118,7 @@ const ClickedVideo = () => {
                                         <p className="text-xs text-white">Likes {like}</p>
                                     </div>
 
-                                    <div className={"" + (dislike ? "text-blue-500" : "")}>
-                                        <FaThumbsDown onClick={onDisLikeButtonClick}
-                                            className="text-2xl mx-auto cursor-pointer" />
-                                        <p className="text-xs text-white">DisLikes {dislike}</p>
-                                    </div>
+
 
                                     <div className=''>
                                         <MdPlaylistAdd className='text-2xl mx-auto'></MdPlaylistAdd>
@@ -147,6 +142,9 @@ const ClickedVideo = () => {
                             <p className='text-xl my-2'>Description</p>
                             <p className='text-xs text-'>{data.overview}</p>
                         </div>
+                        <div>
+                            <ClickedVideoReview/>
+                        </div>
                     </div>
 
 
@@ -160,9 +158,9 @@ const ClickedVideo = () => {
                             {
                                 recomended?.slice(0, 6).map(movies =>
                                     <Recommended
-                                    video={video}
-                                    setVideo={setVideo}
-                                    movies={movies}></Recommended>
+                                        video={video}
+                                        setVideo={setVideo}
+                                        movies={movies}></Recommended>
                                 )
                             }
                         </div>

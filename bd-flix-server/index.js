@@ -104,7 +104,7 @@ async function run() {
                 console.log('CSV file successfully processed');
             });
 
-        app.get('/recommend/:movie',async (req, res) => {
+        app.get('/recommend/:movie', async (req, res) => {
             try {
                 let movie = req.params.movie;
                 let index;
@@ -164,7 +164,7 @@ async function run() {
             try {
                 const response = await axios.get('http://localhost:5000/allMovie');
                 const data = response.data;
-        
+
                 const randomData = [];
                 while (randomData.length < 6) {
                     const randomIndex = Math.floor(Math.random() * data.length);
@@ -173,7 +173,7 @@ async function run() {
                         randomData.push(randomItem);
                     }
                 }
-        
+
                 return randomData;
             } catch (error) {
                 console.error(error);
