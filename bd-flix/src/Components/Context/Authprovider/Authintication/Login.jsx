@@ -24,7 +24,6 @@ const Login = () => {
 
 
 
-
     const { signIn, user } = useContext(AuthContext)
 
     const navigate = useNavigate()
@@ -38,7 +37,6 @@ const Login = () => {
         const password = form.password.value;
         signIn(email, password).then(result => {
             const user = result.user;
-
 
 
             form.reset();
@@ -67,7 +65,7 @@ const Login = () => {
                 const user = result.user;
 
 
-                navigate('/')
+                // navigate('/')
             })
             .catch(error => console.error(error))
     }
@@ -102,7 +100,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" name="password" placeholder="password" className="input input-bordered" />
+                            <input type="password" name="password" placeholder="password" className="input input-bordered" />
                             <label className="label">
                                 <Link to='/forget' className="label-text-alt link  text-green-700 hover:text-green-400">Forgot password?</Link>
                             </label>

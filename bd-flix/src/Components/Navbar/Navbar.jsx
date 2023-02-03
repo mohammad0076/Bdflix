@@ -1,14 +1,42 @@
-import React, { useContext, useState } from 'react';
+
+import React, { useContext, useEffect, useState } from 'react';
+
+
 import { Link, Navigate } from 'react-router-dom';
-import { FaHome, FaVideo, MdDarkMode, FaToggleOn, FaToggleOff } from 'react-icons/fa';
+import { FaHome, FaVideo,  FaToggleOn, FaToggleOff } from 'react-icons/fa';
+
 import { FaEnvelope } from 'react-icons/fa';
 import { AuthContext } from '../Context/Authprovider/Authprovider';
-import logo from '../../images/brand.png'
-import { useEffect } from 'react';
-const Navbar = () => {
 
+import logo from '../../images/brand.png'
+
+const Navbar = () => {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 35610617a779bee5ac653d539600a409f4d96c5a
     const [active, setActive] = useState('home');
+    const [AllMoviesSearch, setData] = useState([]);
+    const [searchApiData, setSearchApiData] = useState([])
+    const [filterVal, setFilterVal] = useState('');
+
+
+
+
+
+    useEffect(() => {
+
+        fetch('http://localhost:5000/allsearch')
+            .then(res => res.json())
+            .then(res => {
+                setData(res)
+                setSearchApiData(res)
+
+            });
+    }, [])
+
     const { user, logout, mode, Togglebutton } = useContext(AuthContext)
+
 
     const handlelogout = () => {
         logout()
@@ -20,11 +48,20 @@ const Navbar = () => {
 
     const nav = <>
         <li><Link to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
+<<<<<<< HEAD
         <li><Link to='/premium' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link to='/tvshows' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
         <li><Link to='/movies' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
         <button className={`text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline`} onClick={Togglebutton}>{mode === "light" ? 
         <FaToggleOn></FaToggleOn> : <FaToggleOff></FaToggleOff>}</button>
+=======
+
+        <li><Link to="/Premium" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
+        <li><Link to="/tvshows" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
+        <li><Link to="/movies" className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
+        <button className={`text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline`} onClick={Togglebutton}>{mode === "light" ? <FaToggleOn></FaToggleOn> : <FaToggleOff></FaToggleOff>}</button>
+
+>>>>>>> 35610617a779bee5ac653d539600a409f4d96c5a
     </>
 
     const bottomNav = <>
@@ -47,12 +84,32 @@ const Navbar = () => {
             <FaEnvelope />
         </Link>
         {
+
+
             <li>  </li>
         }
     </>
+    const handleFilter = (e) => {
+
+        if (e.target.value === '') {
+            setData(searchApiData)
+        } else {
+
+            const filterSearch = searchApiData.filter(it => it?.title?.toLowerCase().includes(e.target.value.toLowerCase()));
+            setData(filterSearch)
+        }
+        setFilterVal(e.target.value)
+    }
+
     return (
+
         <>
+
+
+            <div className="navbar bg-black">
+
             <div className={`navbar bg-black`}>
+
 
                 <div className="navbar-start">
                     {/* <div className="dropdown">
@@ -66,8 +123,31 @@ const Navbar = () => {
 
                     <div className='flex gap-2'>
                         <div className='btn rounded font-mono uppercase bg-none shadow-inner text-xl font-bold text-white'><img src={logo} alt=''></img>-FLIX</div>
-                        <input type="text" placeholder="Search Movies" className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" />
+                        {/* <input  placeholder='search' value={filterVal} onInput={(e) => handleFilter(e.target.value)} className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" /> */}
+                        {/* <input type='text' placeholder='Search' value={filterVal} onInput={(e) => handleFilter(e)} className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" /> */}
+                        <div className="dropdown">
+                            <label tabIndex={0} ><input type='text' placeholder='Search' value={filterVal} onInput={(e) => handleFilter(e)} className="input lg:block hidden lg:w-full h-10 rounded-3xl bg-[#3a3b3c]" /></label>
+                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>{
+                                    AllMoviesSearch?.slice(0, 3).map(it => {
+                                        return (
+
+                                            <Link to={`/allmovie/${it.id}` && `/clickedvideo/${it.id}` &&`/moviesforyou/${it.id}`} key={it.id}>
+                                                {it.title}
+
+                                            </Link>
+
+                                        );
+                                    }
+                                    )
+                                }</li>
+
+                            </ul>
+                        </div>
                     </div>
+
+
+
 
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -80,11 +160,15 @@ const Navbar = () => {
                         <>
                             <li><Link to="/admin" className="text-white font-bold mr-10 hover:text-green-400 focus:outline-none focus:shadow-outline">  Admin</Link></li>
                             <li className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handlelogout} ><Link to='/login'>Logout</Link></li>
+
+
+
                             <div className="avatar ml-2">
                                 <div className="w-12 rounded-full">
                                     <img src={user.photoURL} />
                                 </div>
                             </div>
+
 
                         </>
                         :
@@ -94,6 +178,7 @@ const Navbar = () => {
 
                     {/* <button onClick={handleLogOut} className='btn bg-orange-600 rounded-3xl text-white'>LogOut</button> */}
                 </div>
+            </div>
             </div>
 
             {/* ****************************************************************** */}
@@ -109,8 +194,10 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+
+
         </>
-    );
+    )
 };
 
 export default Navbar;

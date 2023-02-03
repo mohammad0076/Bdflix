@@ -84,6 +84,8 @@ async function run() {
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
         const allUsers = client.db("bdFlix").collection("user");
+        //Reviw collection
+        const reviewCollection = client.db("bdFlix").collection("review");
         //user collection
         const usersCollection = client.db("bdFlix").collection("user");
 
@@ -104,7 +106,7 @@ async function run() {
                 console.log('CSV file successfully processed');
             });
 
-        app.get('/recommend/:movie',async (req, res) => {
+        app.get('/recommend/:movie', async (req, res) => {
             try {
                 let movie = req.params.movie;
                 let index;
@@ -164,7 +166,7 @@ async function run() {
             try {
                 const response = await axios.get('http://localhost:5000/allMovie');
                 const data = response.data;
-        
+
                 const randomData = [];
                 while (randomData.length < 6) {
                     const randomIndex = Math.floor(Math.random() * data.length);
@@ -173,7 +175,7 @@ async function run() {
                         randomData.push(randomItem);
                     }
                 }
-        
+
                 return randomData;
             } catch (error) {
                 console.error(error);
@@ -187,7 +189,10 @@ async function run() {
             const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
             res.send(result);
         })
-
+        app.get('/allsearch', async (req, res) => {
+            const result = await allMoviesCollection.find().toArray();
+            res.send(result);
+        })
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
 
@@ -307,6 +312,12 @@ async function run() {
             console.log(token);
             res.send({ result, token })
         })
+        //reviews collection of users
+        app.post('/review', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
 
     }
 
