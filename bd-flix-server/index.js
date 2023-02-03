@@ -57,7 +57,7 @@ app.post('/upload-video', upload.single('video'), async (req, res) => {
     // Connect to Firestore
     const db = firebase.firestore();
     // Add the download URL of the video in the firestore collection
-    db.collection('videos').add({downloadURL,name:videoName})
+    db.collection('videos').add({ downloadURL, name: videoName })
         .then(() => {
             // Send a response indicating that the video was successfully uploaded
             res.send({ message: 'Video uploaded successfully' });
@@ -67,6 +67,32 @@ app.post('/upload-video', upload.single('video'), async (req, res) => {
             res.status(500).send({ error });
         });
 });
+// db.collection('videos').add({ downloadURL, name: videoName })
+
+app.post('/uploadVideo', upload.single("filename"), (req, res) => {
+    const storageRef = ref(storage, req.file.originalname);
+    const metadata = {
+        contentType: 'video/mp4'
+    };
+    uploadBytes(storageRef, req.file.buffer, metadata)
+
+        .then(() => {
+            // console.log("file uploaded");
+            getDownloadURL(storageRef).then(url => {
+                // console.log(`Download URL: ${url}`);
+
+                res.send({ url });
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).send(error);
+        });
+});
+
+
+
+
 
 //firebase*************************************************
 
@@ -80,7 +106,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run() {
     try {
-        
+
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
         const allUsers = client.db("bdFlix").collection("user");
@@ -90,16 +116,14 @@ async function run() {
 
 
         app.get('/mostPopularMovies', async (req, res) => {
-            const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
+            const result = await MostPopularMoviesCategoriCollection.find().toArray();
             res.send(result);
         })
+
         app.get('/allsearch', async (req, res) => {
-            const result = await allMoviesCollection.find({}).toArray();
+            const result = await allMoviesCollection.find().toArray();
             res.send(result);
         })
-
-
-
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
             const result = await allMoviesCollection.insertOne(allmovies);
@@ -162,58 +186,59 @@ async function run() {
         })
 
         app.get('/MoviesForYou', async (req, res) => {
-            const result = await MoviesForYouCategoriCollection.find({}).toArray();
+            const result = await MoviesForYouCategoriCollection.find().toArray();
+            res.send(result);
         })
-            app.get('/movies', async (req, res) => {
-                const result = await allMoviesCollection.find({}).toArray();
-                res.send(result);
-            })
+        app.get('/movies', async (req, res) => {
+            const result = await allMoviesCollection.find({}).toArray();
+            res.send(result);
+        })
 
-            // get movie by category
-            app.get('/allmovie/:category', async (req, res) => {
-                const allmovies = req.params.category;
-                const getmovies = await allMoviesCollection.find({}).toArray();
-                const result = await getmovies.filter(getmovie => getmovie.category == allmovies);
-                res.send(result);
-            })
+        // get movie by category
+        app.get('/allmovie/:category', async (req, res) => {
+            const allmovies = req.params.category;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.filter(getmovie => getmovie.category == allmovies);
+            res.send(result);
+        })
 
-            app.get('/movie/:id', async (req, res) => {
-                const allmovies = req.params.id;
-                const getmovies = await allMoviesCollection.find({}).toArray();
-                const result = await getmovies.find(getmovie => getmovie.id == allmovies);
-                res.send(result);
-            })
+        app.get('/movie/:id', async (req, res) => {
+            const allmovies = req.params.id;
+            const getmovies = await allMoviesCollection.find({}).toArray();
+            const result = await getmovies.find(getmovie => getmovie.id == allmovies);
+            res.send(result);
+        })
 
-            app.get('/comedies', async (req, res) => {
-                const comedies = await ComediesCollection.find({}).toArray();
-                res.send(comedies);
-            })
+        app.get('/comedies', async (req, res) => {
+            const comedies = await ComediesCollection.find({}).toArray();
+            res.send(comedies);
+        })
 
-            //save user email and generate JWT token
-            app.put('/user/:email', async (req, res) => {
-                const email = req.params.email
-                const user = req.body
-                const filter = { email: email }
-                const options = { upsert: true }
-                const updateDoc = {
-                    $set: user,
-                }
-                const result = await usersCollection.updateOne(filter, updateDoc, options)
-                console.log(result)
+        //save user email and generate JWT token
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email
+            const user = req.body
+            const filter = { email: email }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: user,
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            console.log(result)
 
-                const token = jwt.sign(user, process.env.ACCESS_TOKEN,
-                    { expiresIn: '1d' })
-                console.log(token);
-                res.send({ result, token })
-            })
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN,
+                { expiresIn: '1d' })
+            console.log(token);
+            res.send({ result, token })
+        })
 
-        }
-
-        
-    finally { }
     }
+
+
+    finally { }
+}
 run().catch(console.dir);
 
-    app.listen(port, () => {
-        console.log(`listening on ${port}`);
-    })
+app.listen(port, () => {
+    console.log(`listening on ${port}`);
+})
