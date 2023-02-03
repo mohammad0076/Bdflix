@@ -5,17 +5,27 @@ import { AuthContext } from '../Authprovider';
 
 import { toast } from 'react-toastify';
 import useTitle from '../../../../Hooks/UseTitle/UseTitle';
+import { setAuthToken } from '../../../../Token/AuthToken';
+
+
+
+
 
 
 
 const Login = () => {
     const [error, setError] = useState('')
+    const [loading, setloading] = useState(false)
 
     useTitle('Login')
 
 
 
-    const { signIn } = useContext(AuthContext)
+
+
+
+    const { signIn, user } = useContext(AuthContext)
+
     const navigate = useNavigate()
     const location = useLocation();
     const form = location?.state?.from?.pathname || '/';
@@ -27,10 +37,11 @@ const Login = () => {
         const password = form.password.value;
         signIn(email, password).then(result => {
             const user = result.user;
-            console.log(user)
+
+
             form.reset();
             setError('')
-            navigate('/')
+            navigate(form, { replace: true })
         }).catch(error => {
             console.log(error)
             setError(error.message)
@@ -48,11 +59,13 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider()
 
     const handlegoogle = () => {
+
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                navigate('/')
+
+
+                // navigate('/')
             })
             .catch(error => console.error(error))
     }
@@ -87,7 +100,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" name="password" placeholder="password" className="input input-bordered" />
+                            <input type="password" name="password" placeholder="password" className="input input-bordered" />
                             <label className="label">
                                 <Link to='/forget' className="label-text-alt link  text-green-700 hover:text-green-400">Forgot password?</Link>
                             </label>

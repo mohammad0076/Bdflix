@@ -1,10 +1,11 @@
 export const setAuthToken = user => {
     const currentUser = {
-        email: user.email,
+
+        email: user?.email,
     }
 
     //save user in db & get token
-    fetch(`http://localhost:5000/user/${user?.email}`,
+    fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/user/${user?.email}`,
         {
             method: 'PUT',
             headers: {

@@ -14,7 +14,10 @@ import Signup from "../../Components/Context/Authprovider/Authintication/Signup"
 import HomePage from "../../Components/Home/IndexPage/HomePage";
 import Movies from "../../Components/Movies/Movies";
 import Premium from "../../Components/Premium/Premium";
+import TvShows from "../../Components/Tvshows/Tvshows";
 import Main from "../../Main/Main";
+import Private from "../Private";
+
 
 const router = createBrowserRouter([
     {
@@ -27,17 +30,17 @@ const router = createBrowserRouter([
             },
             {
                 path: '/clickedvideo/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
                 path: '/moviesforyou/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
                 path: '/allmovie/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/movie/${params.id}`),
+                loader: ({ params }) => fetch(`https://bd-flix-server-i4wbktqxf-mohammad0076.vercel.app/movie/${params.id}`),
                 element: <ClickedVideo></ClickedVideo>
             },
             {
@@ -58,22 +61,22 @@ const router = createBrowserRouter([
 
             },
 
+
             {
                 path: '/movies',
                 element: <Movies></Movies>
 
             },
-            // {
-            //     path: '/tvshows',
-            //     element: <TvShow></TvShows>
-
-            // },
             {
-                path: '/premium',
-                element: <Premium></Premium>
+                path: '/tvshows',
+                element: <TvShows></TvShows>
 
             },
+            {
+                path: '/premium',
+                element: <Private><Premium></Premium></Private>
 
+            },
 
 
 
@@ -83,6 +86,17 @@ const router = createBrowserRouter([
         path: '/admin',
         element: <Admin />,
         children: [
+
+            {
+                path: '/admin',
+                element: <AllMovies />
+
+            },
+            {
+                path: '/admin/allmovies',
+                element: <AllMovies />
+
+            },
             {
                 path: '/admin/allmovies',
                 element: <AllMovies />
@@ -100,7 +114,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/admin/updatemovie',
-                element:<MovieUpdate/>
+                element: <MovieUpdate />
 
             },
         ]

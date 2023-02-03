@@ -2,19 +2,18 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from '../../Footer/Footer';
 import Navbar from '../../Navbar/Navbar';
-import AllServices from './Layout/AllServices';
 import Daiyer from './Layout/Daiyer';
 
 const Admin = () => {
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <div className='lg:flex md:flex md:m-20'>
-                <Daiyer/>
-            <Outlet/>
+                <Daiyer />
+                <Outlet />
             </div>
-            
-            <Footer/>
+
+            <Footer />
         </div>
     );
 };

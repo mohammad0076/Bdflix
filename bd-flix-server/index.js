@@ -11,13 +11,11 @@ const jwt = require('jsonwebtoken')
 app.use(cors());
 app.use(express.json());
 
-
 //firebase*************************************************
 
-const multer = require('multer');
-const upload = multer();
-const firebase = require('firebase-admin');
-const credentials = require('./bdflix-f2281-firebase-adminsdk-kif2f-1e3bc57c48.json');
+const multer = require("multer");
+const firebase = require("firebase/app");
+const { getStorage, ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 
 const firebaseConfig = {
     apiKey: "AIzaSyC6rov5IQ_uuDeY_DRnHhSADgnb3XoukL8",
@@ -27,47 +25,9 @@ const firebaseConfig = {
     messagingSenderId: "259794146141",
     appId: "1:259794146141:web:bab53915941d9a79830eb4"
 };
-
-firebase.initializeApp({
-    credential: firebase.credential.cert(credentials),
-    storageBucket: "gs://bdflix-f2281.appspot.com",
-});
-
-const db = firebase.firestore();
-// const person = db.collection("person");
-const bucket = firebase.storage()
-
-
-app.post('/upload-video', upload.single('video'), async (req, res) => {
-    // Get the video file from the request
-    const videoFile = req.file;
-
-    // Create a unique name for the video file
-    const videoName = `${Date.now()}_${videoFile.originalname}`;
-
-    // Create a reference to the video file in Firebase Storage
-    const videoRef = storage.ref().child(`videos/${videoName}`);
-
-    // Upload the video file to Firebase Storage
-    const snapshot = await videoRef.put(videoFile.buffer);
-
-    // Get the download URL of the video file
-    const downloadURL = await snapshot.ref.getDownloadURL();
-
-    // Connect to Firestore
-    const db = firebase.firestore();
-    // Add the download URL of the video in the firestore collection
-    db.collection('videos').add({ downloadURL, name: videoName })
-        .then(() => {
-            // Send a response indicating that the video was successfully uploaded
-            res.send({ message: 'Video uploaded successfully' });
-        })
-        .catch(error => {
-            // Send an error response if there was a problem uploading the video
-            res.status(500).send({ error });
-        });
-});
-// db.collection('videos').add({ downloadURL, name: videoName })
+firebase.initializeApp(firebaseConfig);
+const storage = getStorage()
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.post('/uploadVideo', upload.single("filename"), (req, res) => {
     const storageRef = ref(storage, req.file.originalname);
@@ -75,7 +35,6 @@ app.post('/uploadVideo', upload.single("filename"), (req, res) => {
         contentType: 'video/mp4'
     };
     uploadBytes(storageRef, req.file.buffer, metadata)
-
         .then(() => {
             // console.log("file uploaded");
             getDownloadURL(storageRef).then(url => {
@@ -90,11 +49,26 @@ app.post('/uploadVideo', upload.single("filename"), (req, res) => {
         });
 });
 
+// upload image------------------------------------------------------------------------
 
+app.post('/uploadPhoto', upload.single("imageFile"), (req, res) => {
+    const storageRef = ref(storage, req.file.originalname);
+    const metadata = {
+        contentType: 'image/jpeg'
+    };
+    uploadBytes(storageRef, req.file.buffer, metadata)
+        .then(() => {
+            getDownloadURL(storageRef).then(url => {
+                res.send({ url });
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).send(error);
+        });
+});
 
-
-
-//firebase*************************************************
+//firebase**********************************************************************
 
 app.get('/', (req, res) => {
     res.send('hello');
@@ -110,25 +84,133 @@ async function run() {
         const ComediesCollection = client.db("bdFlix").collection("comedies");
         const allMoviesCollection = client.db("bdFlix").collection("allmovies");
         const allUsers = client.db("bdFlix").collection("user");
-
+        //Reviw collection
+        const reviewCollection = client.db("bdFlix").collection("review");
         //user collection
         const usersCollection = client.db("bdFlix").collection("user");
 
+        // Movie recomended system end*******************************************
+
+        const Natural = require('natural');
+        const fs = require('fs');
+        const csv = require('csv-parser');
+
+        let newData = [];
+
+        fs.createReadStream('new.csv')
+            .pipe(csv())
+            .on('data', (row) => {
+                newData.push(row);
+            })
+            .on('end', () => {
+                console.log('CSV file successfully processed');
+            });
+
+        app.get('/recommend/:movie', async (req, res) => {
+            try {
+                let movie = req.params.movie;
+                let index;
+                for (let i = 0; i < newData.length; i++) {
+                    const lowercaseMovie = newData[i].title.toLowerCase();
+
+                    if (newData[i].title === movie || lowercaseMovie == movie) {
+                        index = i;
+                        break;
+                    }
+                }
+                let allTags = newData.map(data => data.tags);
+                let TfIdf = new Natural.TfIdf();
+                TfIdf.addDocument(allTags);
+                let similarity = [];
+                for (let i = 0; i < allTags.length; i++) {
+                    similarity.push(TfIdf.tfidf(allTags[i], index));
+                }
+                let distances = [];
+                for (let i = 0; i < allTags.length; i++) {
+                    if (i === index) {
+                        continue;
+                    }
+                    distances.push({ index: i, distance: similarity[i] });
+                }
+                distances.sort((a, b) => b.distance - a.distance);
+                let recommendedMovies = [];
+                for (let i = 0; i < 10; i++) {
+                    recommendedMovies.push(newData[distances[i].index].title);
+                }
+                const words = [];
+                for (const movie of recommendedMovies) {
+                    const movieWords = movie.replace(/[^\w\s]/gi, '').split(" ");
+                    for (const word of movieWords) {
+                        words.push(word);
+                    }
+                    words.push(req.params.movie);
+                }
+
+                let wordsLowerCase = words.map(word => word.toLowerCase());
+                allMoviesCollection.createIndex({ original_title: "text" });
+
+                allMoviesCollection.find({ $text: { $search: wordsLowerCase.join(" ").toString() } }).toArray((error, result) => {
+                    if (error) {
+                        return console.log(error);
+                    }
+                    res.send(result);
+                });
+            } catch (error) {
+                if (error instanceof TypeError || Object.keys(result).length === 0) {
+                    res.send(await generateRandomData());
+                }
+            }
+        });
+        const axios = require('axios');
+        async function generateRandomData() {
+            try {
+                const response = await axios.get('http://localhost:5000/allMovie');
+                const data = response.data;
+
+                const randomData = [];
+                while (randomData.length < 6) {
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    const randomItem = data[randomIndex];
+                    if (!randomData.includes(randomItem)) {
+                        randomData.push(randomItem);
+                    }
+                }
+
+                return randomData;
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+        // Movie recomended system end*******************************************
+
 
         app.get('/mostPopularMovies', async (req, res) => {
-            const result = await MostPopularMoviesCategoriCollection.find().toArray();
+            const result = await MostPopularMoviesCategoriCollection.find({}).toArray();
             res.send(result);
         })
-
         app.get('/allsearch', async (req, res) => {
             const result = await allMoviesCollection.find().toArray();
             res.send(result);
         })
         app.post('/allmovies', async (req, res) => {
             const allmovies = req.body;
+
+            // Get the highest ID from the existing movie documents
+            const highestId = await allMoviesCollection.find({}).sort({ id: -1 }).limit(1).toArray();
+
+            // Set the new ID for the movie document to be inserted
+            allmovies.id = highestId.length === 0 ? 0 : highestId[0].id + 1;
+
             const result = await allMoviesCollection.insertOne(allmovies);
             res.send(result);
-        })
+        });
+
+        // app.post('/allmovies', async (req, res) => {
+        //     const allmovies = req.body;
+        //     const result = await allMoviesCollection.insertOne(allmovies);
+        //     res.send(result);
+        // })
 
         //  movie upload in mongodb 
 
@@ -186,8 +268,7 @@ async function run() {
         })
 
         app.get('/MoviesForYou', async (req, res) => {
-            const result = await MoviesForYouCategoriCollection.find().toArray();
-            res.send(result);
+            const result = await MoviesForYouCategoriCollection.find({}).toArray();
         })
         app.get('/movies', async (req, res) => {
             const result = await allMoviesCollection.find({}).toArray();
@@ -231,6 +312,12 @@ async function run() {
             console.log(token);
             res.send({ result, token })
         })
+        //reviews collection of users
+        app.post('/review', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
 
     }
 
