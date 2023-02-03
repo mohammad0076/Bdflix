@@ -94,12 +94,8 @@ async function run() {
             res.send(result);
         })
         app.get('/allsearch', async (req, res) => {
-           
-
             const result = await allMoviesCollection.find({}).toArray();
             res.send(result);
-
-           
         })
 
 
