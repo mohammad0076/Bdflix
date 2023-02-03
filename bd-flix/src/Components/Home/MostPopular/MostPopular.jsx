@@ -72,14 +72,14 @@ const MostPopular = () => {
     };
 
     return (
-        <>
-            {
-                loading ? "Loading..." : <div className='relative ml-8 my-12 lg:my-0'>
-                    <div className='flex justify-between mb-3'>
-                        <h1 className='text-md   font-bold text-white'>Most Popular</h1>
-                        <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
-                    </div>
-                    <>
+    
+                    <div className='relative ml-8 my-12 lg:my-0'>
+                        <div className='flex justify-between mb-3'>
+                            <h1 className='text-md   font-bold text-white'>Most Popular</h1>
+                            <p className='text-white inline'>See all <AiOutlineArrowRight className='inline text-red-500'></AiOutlineArrowRight></p>
+                        </div>
+                       {
+                        loading? "Loading...": <>
 
                         <div className="carousel carousel-center lg:h-[20vw] h-full"
                             onMouseEnter={() => setArrowButtonVisibility(true)}
@@ -130,9 +130,9 @@ const MostPopular = () => {
                         </div>
 
                     </>
-                </div>
-            }
-        </>
+                       }
+                    </div>
+        
     );
 };
 

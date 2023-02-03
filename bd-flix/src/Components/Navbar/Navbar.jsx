@@ -7,8 +7,6 @@ import logo from '../../images/brand.png'
 import { useEffect } from 'react';
 const Navbar = () => {
 
-
-
     const [active, setActive] = useState('home');
     const { user, logout, mode, Togglebutton } = useContext(AuthContext)
 
@@ -22,15 +20,11 @@ const Navbar = () => {
 
     const nav = <>
         <li><Link to='/' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">Home</Link></li>
-
-
         <li><Link to='/premium' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Premium</Link></li>
         <li><Link to='/tvshows' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Tv Shows</Link></li>
-        <li><Link className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
-        <button className={`text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline`} onClick={Togglebutton}>{mode === "light" ? <FaToggleOn></FaToggleOn> : <FaToggleOff></FaToggleOff>}</button>
-
-
-
+        <li><Link to='/movies' className="text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline">  Movies</Link></li>
+        <button className={`text-white font-bold hover:text-green-400 focus:outline-none focus:shadow-outline`} onClick={Togglebutton}>{mode === "light" ? 
+        <FaToggleOn></FaToggleOn> : <FaToggleOff></FaToggleOff>}</button>
     </>
 
     const bottomNav = <>
